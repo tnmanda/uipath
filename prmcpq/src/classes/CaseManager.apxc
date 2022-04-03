@@ -1,0 +1,78 @@
+@RestResource(urlMapping='/Cases/v1/CloneCase')
+
+global with sharing class CaseManager {
+	/*
+     * Updates the parentId property to String ParentId
+     * If ParentId is empty, creates a clone of CaseId and returns the Id newly created Case
+     *  
+     * Requested 8/4/2021 by RPA team thru Bo Li
+     * 
+     * Update 9.13.2021
+     * Clones the case and if ParentId is present, sets it as parent of Cloned Case
+    */
+    @HttpPost
+    global static string CloneCase(String CaseId,String ParentId) {
+        
+        Case thisCase = [Select Id,ParentId from Case WHERE Id = :CaseId];
+        
+        
+        try
+        {
+            String soql = getCreatableFieldsSOQL('case','id=\''+CaseId+'\'');
+            Case origCase = (Case)Database.query(soql);
+            Case cloneCase = origCase.clone(false, true, false, false);
+            
+            if (!String.isBlank(ParentId)) {
+                cloneCase.ParentId = ParentId;
+            }
+            
+            insert cloneCase;
+            
+            return cloneCase.id;
+        }
+        catch(Exception ex)
+        {
+            return 'Error: ' + ex;
+        }    
+        
+    }
+    
+    //*****************************************************************************************************
+    // Returns a dynamic SOQL statement for the whole object, includes only creatable 
+    // fields since we will be inserting a cloned result of this query
+    public static string getCreatableFieldsSOQL(String objectName, String whereClause){
+         
+        String selects = '';
+         
+        if (whereClause == null || whereClause == ''){ return null; }
+         
+        // Get a map of field name and field token
+        Map<String, Schema.SObjectField> fMap = Schema.getGlobalDescribe()
+            .get(objectName.toLowerCase()).getDescribe().Fields.getMap();
+        
+        list<string> selectFields = new list<string>();
+        
+         
+        if (fMap != null){
+            for (Schema.SObjectField ft : fMap.values()){ // loop through all field tokens (ft)
+                Schema.DescribeFieldResult fd = ft.getDescribe(); // describe each field (fd)
+                if (fd.isCreateable()){ // field is creatable
+                //if (fd.isAccessible()){ 
+                    selectFields.add(fd.getName());
+                }
+            }
+        }
+         
+        if (!selectFields.isEmpty()){
+            for (string s:selectFields){
+                selects += s + ',';
+            }
+            if (selects.endsWith(',')){selects = selects.substring(0,selects.lastIndexOf(','));}
+             
+        }
+         
+        return 'SELECT ' + selects + ' FROM ' + objectName + ' WHERE ' + whereClause;
+         
+    }
+    
+}

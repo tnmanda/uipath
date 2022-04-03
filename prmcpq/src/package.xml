@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Apttus_APTS_Agreement_c_TriggerHandler</members>
+        <members>Apttus_APTS_Agreement_c_TriggerTest</members>
+        <members>CO_ContractWO_TriggerHandler</members>
+        <members>CO_ContractWO_TriggerTest</members>
+        <members>LeadTriggerHandler</members>
+        <members>LeadTriggerHelper</members>
+        <members>LeadTriggerTest</members>
+        <members>TestDataFactory</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Apttus_APTS_Agreement_c_Trigger</members>
+        <members>CO_ContractWO_Trigger</members>
+        <members>LeadTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <version>52.0</version>
+</Package>

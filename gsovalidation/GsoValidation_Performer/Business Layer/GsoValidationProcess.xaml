@@ -1,0 +1,536 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="GsoValidationProcess" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usl="clr-namespace:UiPathTeam.Salesforce.Lightning_Platform;assembly=UiPathTeam.Salesforce.Activities.Lightning_Platform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="sf_username" Type="InArgument(x:String)" />
+    <x:Property Name="sf_password" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_consumerKey" Type="InArgument(x:String)" />
+    <x:Property Name="sf_consumerSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="opportunityId" Type="InArgument(x:String)" />
+    <x:Property Name="siteUrl" Type="InArgument(x:String)" />
+    <x:Property Name="out_Success" Type="OutArgument(x:Boolean)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1341,6740</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>GsoValidationProcess_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="38">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>UiPathTeam.Salesforce.Lightning_Platform</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>Email_Tools</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="66">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPathTeam.Salesforce.Activities.Lightning_Platform</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>Email Tools_Expressions_34119855</AssemblyReference>
+      <AssemblyReference>Email Tools_Expressions_44448017</AssemblyReference>
+      <AssemblyReference>Email Tools_Expressions_9655262</AssemblyReference>
+      <AssemblyReference>Email Tools</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Gso Validation Process" sap:VirtualizedContainerService.HintSize="1351,6675" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="IsConValid" />
+      <Variable x:TypeArguments="x:String" Name="ResponseService" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" IsProduction="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" TimeOut="{x:Null}" UserNameProd="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="[sf_consumerKey]" ConsumerSecret="[New System.Net.NetworkCredential(String.Empty, sf_consumerSecret).Password]" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="1309,6583" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_1" InvalidCommand="No" OverWriteServerType="False" Password="[new System.Net.NetworkCredential(string.Empty, sf_password).Password]" ResponseService="[ResponseService]" ServerType="Production" UserName="[sf_username]" ValidConnection="[IsConValid]">
+      <usl:Salesforce_Application_Scope.Body>
+        <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do - get the opportunity details" sap:VirtualizedContainerService.HintSize="1275,6473" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="DTOpps" />
+              <Variable x:TypeArguments="x:String" Name="strResponse" />
+              <Variable x:TypeArguments="x:Boolean" Name="conValid" />
+              <Variable x:TypeArguments="sd:DataTable" Name="dtResult" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usl:Get_Opportunity_List Result="{x:Null}" sap2010:Annotation.AnnotationText="Gets Renewal and Closed Won Opportunities for the past N days" DataResult="[DTOpps]" DisplayName="Get Opportunity List" sap:VirtualizedContainerService.HintSize="1233,59" sap2010:WorkflowViewState.IdRef="Get_Opportunity_List_1" InvalidCommand="No" Response="[strResponse]" Search="[&quot;Select Id,Name,EC_Type__c,StageName,Account.Id,Company__c,GRA_product_Group__c,Previous_Term_Months__c,Previous_MRR__c,GSO_Comments_after_Validation__c from Opportunity where id='&quot;+opportunityId.ToString+&quot;' ORDER BY CreatedDate DESC &quot;]" ValidConnection="[conValid]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </usl:Get_Opportunity_List>
+            <If Condition="[not DTOpps is Nothing]" sap:VirtualizedContainerService.HintSize="1233,6282" sap2010:WorkflowViewState.IdRef="If_15">
+              <If.Then>
+                <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[DTOpps]" DisplayName="For Each Row - Loop Opportunities" sap:VirtualizedContainerService.HintSize="1197,6105" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+                  <ui:ForEachRow.Body>
+                    <ActivityAction x:TypeArguments="sd:DataRow">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1163,5985" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                        <Sequence.Variables>
+                          <Variable x:TypeArguments="x:String" Name="strPrevComments" />
+                          <Variable x:TypeArguments="x:Decimal" Name="ContractMMRtotal" />
+                          <Variable x:TypeArguments="x:String" Name="ContractTerm" />
+                          <Variable x:TypeArguments="x:String" Name="strProductName" />
+                          <Variable x:TypeArguments="x:String" Name="strProdAccntId" />
+                          <Variable x:TypeArguments="x:String" Name="ContractMMRfromOpp" />
+                          <Variable x:TypeArguments="x:String" Name="ContractTermfromOpp" />
+                          <Variable x:TypeArguments="x:String" Name="OppId" />
+                          <Variable x:TypeArguments="x:String" Name="strStatus" />
+                          <Variable x:TypeArguments="sd:DataTable" Name="DTContracts" />
+                          <Variable x:TypeArguments="x:Boolean" Name="isValid" />
+                          <Variable x:TypeArguments="x:String" Name="strResponse" />
+                          <Variable x:TypeArguments="x:String" Name="ThisSiteUrl" />
+                        </Sequence.Variables>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strStatus]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">Active</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Get Prev Comments" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strPrevComments]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("GSO_Comments_after_Validation__c").toString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <If Condition="[strPrevComments.Contains(&quot;Validated by Robot&quot;)]" sap:VirtualizedContainerService.HintSize="1121,256" sap2010:WorkflowViewState.IdRef="If_1">
+                          <If.Then>
+                            <ui:Continue sap2010:Annotation.AnnotationText="Skip if text &quot;Validated by Robot&quot; is present in the GSO comments in the Opportunity" sap:VirtualizedContainerService.HintSize="200,79" sap2010:WorkflowViewState.IdRef="Continue_1">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:Continue>
+                          </If.Then>
+                        </If>
+                        <Assign DisplayName="Init Total MMR to 0" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Decimal">[ContractMMRtotal]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Decimal">[0]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Init Contract Term to 0" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[ContractTerm]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">
+                              <Literal x:TypeArguments="x:String" Value="" />
+                            </InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign sap2010:Annotation.AnnotationText="Get Vendor Information from Opportunity" DisplayName="Get Product Name" sap:VirtualizedContainerService.HintSize="1121,102" sap2010:WorkflowViewState.IdRef="Assign_6">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strProductName]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("GRA_product_Group__c").toString]</InArgument>
+                          </Assign.Value>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Assign>
+                        <Assign DisplayName="Get Account Id" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strProdAccntId]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("Account.Id").toString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Get the set Contract MMR" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[ContractMMRfromOpp]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("Previous_MRR__c").toString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Get the set Opp Term" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[ContractTermfromOpp]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("Previous_Term_Months__c").toString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Get Opp Id" sap:VirtualizedContainerService.HintSize="1121,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[OppId]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[CurrentRow("Id").toString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                        <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DTContracts]" DisplayName="Get Contracts SOQL" sap:VirtualizedContainerService.HintSize="1121,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_2" InvalidCommand="No" SOQL_Command="[&quot;Select Id,name,ContractNumber,Status__c,LastModifiedDate,Vendor__c,ContractTerm From Contract Where AccountId='&quot;+strProdAccntId.ToString+&quot;' and Status__c='&quot;+strStatus.ToString+&quot;' ORDER BY LastModifiedDate DESC &quot;]" />
+                        <If Condition="[not DTContracts is Nothing]" sap:VirtualizedContainerService.HintSize="1121,3682" sap2010:WorkflowViewState.IdRef="If_13">
+                          <If.Then>
+                            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[DTContracts]" DisplayName="For Each Row - Loop Contracts for this Opportunity" sap:VirtualizedContainerService.HintSize="700,3524" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+                              <ui:ForEachRow.Body>
+                                <ActivityAction x:TypeArguments="sd:DataRow">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="666,3404" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <Sequence.Variables>
+                                      <Variable x:TypeArguments="x:String" Name="strContractResp" />
+                                      <Variable x:TypeArguments="x:Decimal" Name="Charge" />
+                                      <Variable x:TypeArguments="x:String" Name="ContractId" />
+                                      <Variable x:TypeArguments="sd:DataTable" Name="DTContactProds" />
+                                      <Variable x:TypeArguments="x:Boolean" Name="boolProceed" />
+                                      <Variable x:TypeArguments="sd:DataTable" Name="dtSiteUrl" />
+                                    </Sequence.Variables>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="Id" DisplayName="Get ContractId" sap:VirtualizedContainerService.HintSize="624,185" sap2010:WorkflowViewState.IdRef="GetRowItem_1" Row="[row]">
+                                      <ui:GetRowItem.Value>
+                                        <OutArgument x:TypeArguments="x:String">[ContractId]</OutArgument>
+                                      </ui:GetRowItem.Value>
+                                    </ui:GetRowItem>
+                                    <Assign sap:VirtualizedContainerService.HintSize="624,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Boolean">[boolProceed]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[dtSiteUrl]" DisplayName="Get Data SOQL Site Urls" sap:VirtualizedContainerService.HintSize="624,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_3" InvalidCommand="No" SOQL_Command="[&quot;Select Id,name, Contract__c, URL__c From IC_Site__c Where Contract__c = '&quot;+ContractId.ToString+&quot;' LIMIT 1&quot;]" />
+                                    <If Condition="[not dtSiteUrl is Nothing]" sap:VirtualizedContainerService.HintSize="624,574" sap2010:WorkflowViewState.IdRef="If_12">
+                                      <If.Then>
+                                        <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dtSiteUrl]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="510,397" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+                                          <ui:ForEachRow.Body>
+                                            <ActivityAction x:TypeArguments="sd:DataRow">
+                                              <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                                              </ActivityAction.Argument>
+                                              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,277" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                                <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="URL__c" DisplayName="Get Site Url" sap:VirtualizedContainerService.HintSize="434,185" sap2010:WorkflowViewState.IdRef="GetRowItem_6" Row="[CurrentRow]">
+                                                  <ui:GetRowItem.Value>
+                                                    <OutArgument x:TypeArguments="x:String">[ThisSiteUrl]</OutArgument>
+                                                  </ui:GetRowItem.Value>
+                                                </ui:GetRowItem>
+                                              </Sequence>
+                                            </ActivityAction>
+                                          </ui:ForEachRow.Body>
+                                        </ui:ForEachRow>
+                                      </If.Then>
+                                    </If>
+                                    <If Condition="[siteUrl is Nothing]" DisplayName="If url is null, set to blank to avoid exception" sap:VirtualizedContainerService.HintSize="624,237" sap2010:WorkflowViewState.IdRef="If_9">
+                                      <If.Then>
+                                        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[siteUrl]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">
+                                              <Literal x:TypeArguments="x:String" Value="" />
+                                            </InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </If.Then>
+                                    </If>
+                                    <If Condition="[ThisSiteUrl is Nothing]" DisplayName="If url is null, set to blank to avoid exception" sap:VirtualizedContainerService.HintSize="624,237" sap2010:WorkflowViewState.IdRef="If_10">
+                                      <If.Then>
+                                        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[ThisSiteUrl]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">
+                                              <Literal x:TypeArguments="x:String" Value="" />
+                                            </InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </If.Then>
+                                    </If>
+                                    <If Condition="[siteUrl &lt;&gt; &quot;&quot; and siteUrl.Replace(&quot;http://&quot;,&quot;&quot;) &lt;&gt; ThisSiteUrl.Replace(&quot;http://&quot;,&quot;&quot;)]" sap:VirtualizedContainerService.HintSize="624,237" sap2010:WorkflowViewState.IdRef="If_6">
+                                      <If.Then>
+                                        <Assign DisplayName="set Proceed false if this Url doesnt match the one in contract" sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_13">
+                                          <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Boolean">[boolProceed]</OutArgument>
+                                          </Assign.To>
+                                          <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                          </Assign.Value>
+                                        </Assign>
+                                      </If.Then>
+                                    </If>
+                                    <If Condition="[boolProceed = True]" sap:VirtualizedContainerService.HintSize="624,1480" sap2010:WorkflowViewState.IdRef="If_8">
+                                      <If.Then>
+                                        <Sequence sap:VirtualizedContainerService.HintSize="588,1303" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <If sap2010:Annotation.AnnotationText="Term is based on the first contract since the rows are ordered by created date in DESC" Condition="[ContractTerm = &quot;&quot;]" DisplayName="If Term not yet set" sap:VirtualizedContainerService.HintSize="546,435" sap2010:WorkflowViewState.IdRef="If_7">
+                                            <sap:WorkflowViewStateService.ViewState>
+                                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                              </scg:Dictionary>
+                                            </sap:WorkflowViewStateService.ViewState>
+                                            <If.Then>
+                                              <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" sap2010:Annotation.AnnotationText="" ColumnName="ContractTerm" DisplayName="Get Terms. Set the Term Variable to be saved on the Opp after processing" sap:VirtualizedContainerService.HintSize="434,216" sap2010:WorkflowViewState.IdRef="GetRowItem_7" Row="[row]">
+                                                <ui:GetRowItem.Value>
+                                                  <OutArgument x:TypeArguments="x:String">[ContractTerm]</OutArgument>
+                                                </ui:GetRowItem.Value>
+                                                <sap:WorkflowViewStateService.ViewState>
+                                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                    <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                                  </scg:Dictionary>
+                                                </sap:WorkflowViewStateService.ViewState>
+                                              </ui:GetRowItem>
+                                            </If.Then>
+                                          </If>
+                                          <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DTContactProds]" DisplayName="Get Data Related Products" sap:VirtualizedContainerService.HintSize="546,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_4" InvalidCommand="No" Response="[strResponse]" SOQL_Command="[&quot;Select id, Product__c, TotalCharge__c, Vendor__c, Name, Contract__c From IC_ContractProduct__c Where Contract__c = '&quot;+ContractId+&quot;'&quot;]" />
+                                          <If Condition="[not DTContactProds is Nothing]" DisplayName="If  Contract Related Prods has values" sap:VirtualizedContainerService.HintSize="546,674" sap2010:WorkflowViewState.IdRef="If_14">
+                                            <If.Then>
+                                              <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[DTContactProds]" DisplayName="For Each - Loop Products for this Contract" sap:VirtualizedContainerService.HintSize="510,497" sap2010:WorkflowViewState.IdRef="ForEachRow_5">
+                                                <ui:ForEachRow.Body>
+                                                  <ActivityAction x:TypeArguments="sd:DataRow">
+                                                    <ActivityAction.Argument>
+                                                      <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                                                    </ActivityAction.Argument>
+                                                    <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,377" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                                      <sap:WorkflowViewStateService.ViewState>
+                                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                                        </scg:Dictionary>
+                                                      </sap:WorkflowViewStateService.ViewState>
+                                                      <ui:GetRowItem Column="{x:Null}" ColumnIndex="{x:Null}" ColumnName="TotalCharge__c" DisplayName="Get Total Charge " sap:VirtualizedContainerService.HintSize="434,185" sap2010:WorkflowViewState.IdRef="GetRowItem_8" Row="[row]">
+                                                        <ui:GetRowItem.Value>
+                                                          <OutArgument x:TypeArguments="x:Decimal">[Charge]</OutArgument>
+                                                        </ui:GetRowItem.Value>
+                                                      </ui:GetRowItem>
+                                                      <Assign DisplayName="Add the product MRR to the Total MRR" sap:VirtualizedContainerService.HintSize="434,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                                        <Assign.To>
+                                                          <OutArgument x:TypeArguments="x:Decimal">[ContractMMRtotal]</OutArgument>
+                                                        </Assign.To>
+                                                        <Assign.Value>
+                                                          <InArgument x:TypeArguments="x:Decimal">[ContractMMRtotal + Charge]</InArgument>
+                                                        </Assign.Value>
+                                                      </Assign>
+                                                    </Sequence>
+                                                  </ActivityAction>
+                                                </ui:ForEachRow.Body>
+                                              </ui:ForEachRow>
+                                            </If.Then>
+                                          </If>
+                                        </Sequence>
+                                      </If.Then>
+                                    </If>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:ForEachRow.Body>
+                            </ui:ForEachRow>
+                          </If.Then>
+                          <If.Else>
+                            <Sequence sap:VirtualizedContainerService.HintSize="376,245" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Trace" Message="[&quot;No Active contracts found for Opportunity: &quot; + OppId]" />
+                              <Throw DisplayName="Throw BE - No Active Contracts" Exception="[New BusinessRuleException(&quot;No Active contracts found for Opportunity: &quot; + OppId)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                            </Sequence>
+                          </If.Else>
+                        </If>
+                        <If Condition="[ContractMMRtotal &gt; 0]" DisplayName="If  MRR total has values" sap:VirtualizedContainerService.HintSize="1121,871" sap2010:WorkflowViewState.IdRef="If_2">
+                          <If.Then>
+                            <Sequence sap:VirtualizedContainerService.HintSize="839,694" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <usl:Update_Opportunity Result="{x:Null}" DisplayName="Update Opportunity" sap:VirtualizedContainerService.HintSize="797,59" sap2010:WorkflowViewState.IdRef="Update_Opportunity_2" InvalidCommand="No" OpportunityID="[OppId]" Response="[strResponse]" ValidConnection="[conValid]" cmdTYPE="UpdateOpportunity">
+                                <usl:Update_Opportunity.Parameters>
+                                  <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                                    <usl:ParametersArgument>
+                                      <usl:ParametersArgument.Parameter>
+                                        <InArgument x:TypeArguments="x:String">GSO_Comments_after_Validation__c</InArgument>
+                                      </usl:ParametersArgument.Parameter>
+                                      <usl:ParametersArgument.ValueData>
+                                        <InArgument x:TypeArguments="x:String">[strPrevComments + " Validated by Robot. Previous MRR: " + ContractMMRfromOpp + " Previous Term: " + ContractTermfromOpp]</InArgument>
+                                      </usl:ParametersArgument.ValueData>
+                                    </usl:ParametersArgument>
+                                    <usl:ParametersArgument>
+                                      <usl:ParametersArgument.Parameter>
+                                        <InArgument x:TypeArguments="x:String">Previous_Term_Months__c</InArgument>
+                                      </usl:ParametersArgument.Parameter>
+                                      <usl:ParametersArgument.ValueData>
+                                        <InArgument x:TypeArguments="x:String">[ContractTerm]</InArgument>
+                                      </usl:ParametersArgument.ValueData>
+                                    </usl:ParametersArgument>
+                                    <usl:ParametersArgument>
+                                      <usl:ParametersArgument.Parameter>
+                                        <InArgument x:TypeArguments="x:String">Previous_MRR__c</InArgument>
+                                      </usl:ParametersArgument.Parameter>
+                                      <usl:ParametersArgument.ValueData>
+                                        <InArgument x:TypeArguments="x:String">[ContractMMRtotal.ToString]</InArgument>
+                                      </usl:ParametersArgument.ValueData>
+                                    </usl:ParametersArgument>
+                                  </scg:List>
+                                </usl:Update_Opportunity.Parameters>
+                              </usl:Update_Opportunity>
+                              <If Condition="[strResponse &lt;&gt;&quot;UPDATE COMPLETED&quot;]" sap:VirtualizedContainerService.HintSize="797,503" sap2010:WorkflowViewState.IdRef="If_11">
+                                <If.Then>
+                                  <Sequence DisplayName="Sequence Update Fails" sap:VirtualizedContainerService.HintSize="376,345" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Error" Message="[&quot;Failed to update Opportunity &quot;+ OppId + &quot; Server Response: &quot; + strResponse]" />
+                                    <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_17">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Boolean">[out_Success]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                    <Throw DisplayName="Throw BE - Failed to Update Opp" Exception="[New BusinessRuleException(&quot;Failed to update Opportunity Server Response: &quot; + strResponse + OppId)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                  </Sequence>
+                                </If.Then>
+                                <If.Else>
+                                  <Sequence DisplayName="Sequence Update Success" sap:VirtualizedContainerService.HintSize="376,283" sap2010:WorkflowViewState.IdRef="Sequence_15">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Opportunity &quot; +OppId+ &quot; updated! Prev MRR &quot; + ContractMMRfromOpp + &quot; Prev Term &quot; + ContractTermfromOpp + &quot; New MRR:&quot; + ContractMMRtotal.ToString + &quot; New Term:&quot; + ContractTerm]" />
+                                    <Assign sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_18">
+                                      <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Boolean">[out_Success]</OutArgument>
+                                      </Assign.To>
+                                      <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                                      </Assign.Value>
+                                    </Assign>
+                                  </Sequence>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                          </If.Then>
+                        </If>
+                      </Sequence>
+                    </ActivityAction>
+                  </ui:ForEachRow.Body>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:ForEachRow>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </usl:Salesforce_Application_Scope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </usl:Salesforce_Application_Scope>
+  </Sequence>
+</Activity>

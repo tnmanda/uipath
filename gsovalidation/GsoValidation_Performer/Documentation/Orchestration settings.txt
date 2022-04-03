@@ -1,0 +1,18 @@
+
+
+GSO Validation Orchestration settings
+
+Queue 
+	- GsoValidation
+
+Process
+	- EC GSO Validation Dispatcher
+	- EC GSO Validation Performer
+	
+Packages
+	- GsoValidation_Dispatcher
+	- GsoValidation_Performer
+	
+Triggers
+	- EC GSO Validation Dispatcher Trigger (00:01) CST
+	- EC GSO Validation Performer Trigger

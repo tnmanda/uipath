@@ -1,0 +1,6 @@
+Company,Location,Service,Invoice Description,NER ID,NRC Type,Quantity,Rate,Pro-Rate Month,Leasing Company
+"Berkeley Research Group, LLC","CANCELLED LOCATION 1600 Dove St., Suite 400, Newport Beach, CA 92660",Emergency Routing Service (ERS),"Emergency Routing Service (ERS) @ $0.5 (Svc. Jan 1-9, 2022)",,nrc,131,0.15,,
+"Berkeley Research Group, LLC","CANCELLED LOCATION 1600 Dove St., Suite 400, Newport Beach, CA 92660",Expressway Rich Media Session,"Expressway Rich Media Session @ $12 (Svc. Jan 1-9, 2022)",,nrc,1,3.48,,
+"Berkeley Research Group, LLC","CANCELLED LOCATION 1600 Dove St., Suite 400, Newport Beach, CA 92660",Voice Management and Reporting,"Voice Management and Reporting @ $30 (Svc. Jan 1-9, 2022)",,nrc,1,8.71,,
+"Berkeley Research Group, LLC","CANCELLED LOCATION 1600 Dove St., Suite 400, Newport Beach, CA 92660",VoiceMaxx Standard Plus Service Package,"VoiceMaxx CE Standard Plus Service Package @ $20.5 (Svc. Jan 1-9, 2022)",,nrc,34,5.95,,
+"Berkeley Research Group, LLC","CANCELLED LOCATION 1600 Dove St., Suite 400, Newport Beach, CA 92660",VoiceMaxx Standard Service Package,"VoiceMaxx CE Standard Service Package @ $17.5 (Svc. Jan 1-9, 2022)",,nrc,21,5.08,,

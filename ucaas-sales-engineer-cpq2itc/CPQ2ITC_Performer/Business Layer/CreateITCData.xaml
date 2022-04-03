@@ -1,0 +1,1824 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="CreateITCData" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usl="clr-namespace:UiPathTeam.Salesforce.Lightning_Platform;assembly=UiPathTeam.Salesforce.Activities.Lightning_Platform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="out_numberOfItems" Type="OutArgument(x:Int32)" />
+    <x:Property Name="agreementId" Type="InArgument(x:String)" />
+    <x:Property Name="out_itcData" Type="OutArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="sf_username" Type="InArgument(x:String)" />
+    <x:Property Name="sf_password" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_consumerKey" Type="InArgument(x:String)" />
+    <x:Property Name="sf_consumerSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="quoteOwnerEmail" Type="OutArgument(x:String)" />
+    <x:Property Name="country" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>874.666666666667,10635.3333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>CreateITCData_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="62">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPathTeam.Salesforce.Lightning_Platform</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="56">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPathTeam.Salesforce.Activities.Lightning_Platform</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="CreateITCData" sap:VirtualizedContainerService.HintSize="884.666666666667,10570.6666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="initializeQuote" />
+      <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="quoteContacts" />
+      <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="locations" />
+      <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="services" />
+      <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="equipmentData" />
+      <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="circuits" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="circuit" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="service" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="equipments" />
+      <Variable x:TypeArguments="sd:DataTable" Name="quoteDT" />
+      <Variable x:TypeArguments="x:String" Name="response" />
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="locationsDic" />
+      <Variable x:TypeArguments="sd:DataTable" Name="locationDT" />
+      <Variable x:TypeArguments="sd:DataTable" Name="countryMapping" />
+      <Variable x:TypeArguments="sd:DataTable" Name="currencyMapping" />
+      <Variable x:TypeArguments="x:Int32" Name="counter" />
+      <Variable x:TypeArguments="x:Boolean" Name="hasITCProducts" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence DisplayName="Mapping" sap:VirtualizedContainerService.HintSize="842.666666666667,310.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_23">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BuildDataTable sap2010:Annotation.AnnotationText="Country mapping between Salesforce and ITC" DataTable="[countryMapping]" DisplayName="Build Data Table - Country mapping" sap:VirtualizedContainerService.HintSize="334,89.3333333333333" sap2010:WorkflowViewState.IdRef="BuildDataTable_3" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Country_SF&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Country_ITC&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;United States of America&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;United States of America&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Afghanistan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Afghanistan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Albania&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Albania&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Algeria&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Algeria&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Andorra&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Andorra&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Angola&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Angola&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Anguilla&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Anguilla&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Antarctica&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Antarctica&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Antigua and Barbuda&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Antigua and Barbuda&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Argentina&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Argentina&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Armenia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Armenia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Aruba&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Aruba&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Australia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Australia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Austria&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Austria&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Azerbaijan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Azerbaijan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bahamas&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bahamas&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bahrain&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bahrain&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bangladesh&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bangladesh&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Barbados&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Barbados&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Belarus&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Belarus&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Belgium&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Belgium&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Belize&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Belize&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Benin&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Benin&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bermuda&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bermuda&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bhutan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bhutan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bolivia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bolivia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bosnia and Herzegovina&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bosnia and Herzegovina&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Botswana&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Botswana&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Brazil&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Brazil&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;British Indian Ocean Territory&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;British Indian Ocean Territory&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;British Virgin Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;British Virgin Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Brunei Darussalam&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Brunei&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Bulgaria&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Bulgaria&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Burkina Faso&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Burkina Faso&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Myanmar&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Burma&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Burundi&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Burundi&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cambodia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cambodia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cameroon&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cameroon&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Canada&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Canada&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cape Verde&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cape Verde&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cayman Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cayman Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Central African Republic&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Central African Republic&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Chad&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Chad&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Chile&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Chile&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;China&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;China&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Christmas Island&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Christmas Island&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cocos (Keeling) Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cocos (Keeling) Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Colombia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Colombia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Comoros&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Comoros&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Congo, the Democratic Republic of the&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Congo, Democratic Republic of the&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Congo (Brazzaville)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Congo, Republic of the&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cook Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cook Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Costa Rica&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Costa Rica&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Croatia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Croatia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cuba&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cuba&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Cyprus&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Cyprus&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Czech Republic&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Czech Republic&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Denmark&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Denmark&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Djibouti&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Djibouti&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Dominica&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Dominica&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Dominican Republic&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Dominican Republic&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Timor Leste&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;East Timor&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Ecuador&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ecuador&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Egypt&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Egypt&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;El Salvador&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;El Salvador&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Equatorial Guinea&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Equatorial Guinea&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Eritrea&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Eritrea&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Estonia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Estonia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Ethiopia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ethiopia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Falkland Islands (Malvinas)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Falkland Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Faroe Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Faroe Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Fiji&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Fiji&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Finland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Finland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;France&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;France&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;French Polynesia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;French Polynesia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Gabon&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Gabon&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Gambia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Gambia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Georgia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Georgia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Germany&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Germany&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Ghana&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ghana&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Gibraltar&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Gibraltar&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Greece&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Greece&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Greenland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Greenland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Grenada&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Grenada&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Guatemala&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Guatemala&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Guinea&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Guinea&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Guinea Bissau&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Guinea-Bissau&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Guyana&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Guyana&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Haiti&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Haiti&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Holy See (Vatican City State)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Holy See (Vatican City)&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Honduras&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Honduras&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Hong Kong, SAR China&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Hong Kong&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Hungary&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Hungary&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Iceland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Iceland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;India&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;India&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Indonesia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Indonesia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Iran, Islamic Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Iran&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Iraq&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Iraq&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Ireland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ireland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Isle of Man&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Isle of Man&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Israel&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Israel&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Italy&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Italy&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Côte d'Ivoire&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ivory Coast&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Jamaica&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Jamaica&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Japan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Japan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Jersey&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Jersey&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Jordan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Jordan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Kazakhstan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Kazakhstan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Kenya&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Kenya&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Kiribati&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Kiribati&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Korea, Democratic People's Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Korea, North&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Korea, Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Korea, South&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Kuwait&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Kuwait&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Kyrgyzstan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Kyrgyzstan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Lao People's Democratic Republic&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Laos&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Latvia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Latvia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Lebanon&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Lebanon&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Lesotho&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Lesotho&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Liberia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Liberia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Libya&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Libya&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Liechtenstein&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Liechtenstein&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Lithuania&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Lithuania&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Luxembourg&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Luxembourg&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Macao&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Macau&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Macedonia, Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Macedonia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Madagascar&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Madagascar&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Malawi&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Malawi&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Malaysia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Malaysia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Maldives&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Maldives&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mali&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mali&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Malta&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Malta&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mauritania&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mauritania&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mauritius&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mauritius&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mayotte&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mayotte&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mexico&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mexico&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Moldova, Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Moldova&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Monaco&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Monaco&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mongolia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mongolia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Montenegro&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Montenegro&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Montserrat&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Montserrat&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Morocco&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Morocco&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Mozambique&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Mozambique&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Namibia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Namibia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Nauru&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Nauru&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Nepal&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Nepal&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Netherlands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Netherlands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Netherlands Antilles&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Netherlands Antilles&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;New Zealand&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;New Zealand&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Nicaragua&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Nicaragua&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Niger&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Niger&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Nigeria&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Nigeria&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Niue&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Niue&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Norfolk Island&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Norfolk Island&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Norway&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Norway&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Oman&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Oman&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Pakistan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Pakistan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Panama&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Panama&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Papua New Guinea&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Papua New Guinea&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Paraguay&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Paraguay&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Peru&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Peru&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Philippines&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Philippines&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Pitcairn&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Pitcairn Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Poland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Poland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Portugal&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Portugal&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Qatar&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Qatar&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Romania&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Romania&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Russian Federation&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Russia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Rwanda&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Rwanda&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Barthélemy&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Barthelemy&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Helena, Ascension and Tristan da Cunha&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Helena&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Kitts and Nevis&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Kitts and Nevis&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Lucia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Lucia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Martin (French part)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Martin&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Pierre and Miquelon&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Pierre and Miquelon&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saint Vincent and the Grenadines&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saint Vincent and the Grenadines&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Samoa&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Samoa&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;San Marino&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;San Marino&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Sao Tome and Principe&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Sao Tome and Principe&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Saudi Arabia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Saudi Arabia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Senegal&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Senegal&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Serbia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Serbia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Seychelles&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Seychelles&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Sierra Leone&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Sierra Leone&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Singapore&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Singapore&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Slovakia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Slovakia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Slovenia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Slovenia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Solomon Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Solomon Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Somalia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Somalia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;South Africa&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;South Africa&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Spain&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Spain&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Sri Lanka&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Sri Lanka&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Sudan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Sudan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Suriname&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Suriname&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Svalbard and Jan Mayen&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Svalbard&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Swaziland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Swaziland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Sweden&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Sweden&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Switzerland&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Switzerland&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Syrian Arab Republic (Syria)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Syria&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Taiwan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Taiwan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tajikistan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tajikistan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tanzania, United Republic of&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tanzania&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Thailand&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Thailand&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Togo&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Togo&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tokelau&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tokelau&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tonga&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tonga&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Trinidad and Tobago&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Trinidad and Tobago&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tunisia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tunisia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Turkey&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Turkey&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Turkmenistan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Turkmenistan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Turks and Caicos Islands&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Turks and Caicos Islands&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Tuvalu&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Tuvalu&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Uganda&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Uganda&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Ukraine&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Ukraine&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;United Arab Emirates&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;United Arab Emirates&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;United Kingdom&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;United Kingdom&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Uruguay&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Uruguay&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Uzbekistan&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Uzbekistan&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Vanuatu&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Vanuatu&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Venezuela (Bolivarian Republic)&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Venezuela&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Vietnam&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Vietnam&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Wallis and Futuna&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Wallis and Futuna&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Western Sahara&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Western Sahara&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Yemen&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Yemen&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;Zambia&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;Zambia&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:BuildDataTable>
+      <ui:BuildDataTable sap2010:Annotation.AnnotationText="Currency mapping between Salesforce and ITC" DataTable="[currencyMapping]" DisplayName="Build Data Table - Currency mapping" sap:VirtualizedContainerService.HintSize="334,89.3333333333333" sap2010:WorkflowViewState.IdRef="BuildDataTable_4" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Currency_SF&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Currency_ITC&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;USD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;United States Dollars (USD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;AFN&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Afghanistan Afghanis (AFN)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;DZD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Algeria Dinars (DZD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;AUD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Australia Dollars (AUD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;BSD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Bahamas Dollars (BSD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;CAD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Canada Dollars (CAD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;EUR&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Euro (EUR)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;MXN&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Mexico Pesos (MXN)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;SGD&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;Singapore Dollars (SGD)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Currency_SF&gt;GBP&lt;/Currency_SF&gt;&#xA;    &lt;Currency_ITC&gt;United Kingdom Pounds (GBP)&lt;/Currency_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:BuildDataTable>
+    </Sequence>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="842.666666666667,464" sap2010:WorkflowViewState.IdRef="CommentOut_17">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="394,385.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_52">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Get Credentials" sap:VirtualizedContainerService.HintSize="352,293.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_24">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Connection_SalesforceAPICredentialsQatest" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="310,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[sf_password]" Username="[sf_username]" />
+            <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Connection_SalesforceConsumerQatest" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="310,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_2" Password="[sf_consumerSecret]" Username="[sf_consumerKey]" />
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+    </ui:CommentOut>
+    <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" IsProduction="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" TimeOut="{x:Null}" UserNameProd="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="[sf_consumerKey]" ConsumerSecret="[new System.Net.NetworkCredential(string.Empty, sf_consumerSecret).Password]" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="842.666666666667,9429.33333333333" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_1" InvalidCommand="No" OverWriteServerType="False" Password="[new System.Net.NetworkCredential(string.Empty, sf_password).Password]" ServerType="Sandbox" UserName="[sf_username]">
+      <usl:Salesforce_Application_Scope.Body>
+        <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="808.666666666667,9319.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="sd:DataTable" Name="contactDT" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[quoteDT]" DisplayName="Get Data SOQL - Get Quotes" sap:VirtualizedContainerService.HintSize="766.666666666667,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_1" InvalidCommand="No" Response="[response]" SOQL_Command="[&quot;Select Id, Apttus__Related_Opportunity__r.Id, Apttus__Related_Opportunity__r.Name, Apttus__Related_Opportunity__r.Oppty_Currency__c, Apttus__Related_Opportunity__r.Oppty_Country__c, Quote__c, Quote__r.SBQQ__Type__c, Quote__r.CurrencyIsoCode, Quote__r.SBQQ__BillingCountry__c, Account__r.Name, Account__r.IP_Company_Number__c, Account__r.Id, Contract_term__c, Quote__r.Owner.Email, Quote__r.ITC_Quote__c From Apttus__APTS_Agreement__c Where Id = '&quot; + agreementId + &quot;'&quot;]" />
+            <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[quoteDT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="766.666666666667,9165.33333333333" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+              <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="732.666666666667,9041.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="quoteId" />
+                      <Variable x:TypeArguments="sd:DataTable" Name="quoteLineDT" />
+                      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="itcData" />
+                      <Variable x:TypeArguments="sd:DataRow" Name="contactRow" />
+                      <Variable x:TypeArguments="sd:DataTable" Name="quoteEmailDT" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_236">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[counter]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">[counter+1]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[quoteEmailDT]" DisplayName="Get Data SOQL - Get Quote Owner Email" sap:VirtualizedContainerService.HintSize="690.666666666667,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_9" InvalidCommand="No" Response="[response]" SOQL_Command="[&quot;Select Owner.Email From SBQQ__Quote__c Where Id = '&quot; + row(&quot;Quote__c&quot;).ToString + &quot;'&quot;]" />
+                    <If Condition="[quoteEmailDT is Nothing OrElse quoteEmailDT.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="690.666666666667,226" sap2010:WorkflowViewState.IdRef="If_18">
+                      <If.Else>
+                        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_344">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[quoteOwnerEmail]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[quoteEmailDT.Rows(0)("Owner.Email").ToString]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </If.Else>
+                    </If>
+                    <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[contactDT]" DisplayName="Get Data SOQL - Get Contacts" sap:VirtualizedContainerService.HintSize="690.666666666667,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_8" InvalidCommand="No" SOQL_Command="[&quot;Select ITC_Principal_Contact__r.Name, ITC_Principal_Contact__r.Phone, ITC_Principal_Contact__r.Email, ITC_Billing_Contact__r.Name, ITC_Billing_Contact__r.Phone, ITC_Billing_Contact__r.Email, ITC_Technical_Contact__r.Name, ITC_Technical_Contact__r.Phone, ITC_Technical_Contact__r.Email From Account Where id = '&quot; + row(&quot;Account__r.Id&quot;).ToString + &quot;'&quot;]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_226">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="sd:DataRow">[contactRow]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="sd:DataRow">[contactDT.Rows(0)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="690.666666666667,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_15">
+                      <ui:CommentOut.Body>
+                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="604.666666666667,572.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:ForEach x:TypeArguments="sd:DataColumn" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="562.666666666667,480.666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[contactDT.Columns]">
+                            <ui:ForEach.Body>
+                              <ActivityAction x:TypeArguments="sd:DataColumn">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="sd:DataColumn" Name="item" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="526,345.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_48">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <If Condition="[contactRow(item.ToString).ToString = &quot;ERROR&quot;]" sap:VirtualizedContainerService.HintSize="484,253.333333333333" sap2010:WorkflowViewState.IdRef="If_16">
+                                    <If.Then>
+                                      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_340">
+                                        <Assign.To>
+                                          <OutArgument x:TypeArguments="x:Object">[contactRow(item)]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                          <InArgument x:TypeArguments="x:Object">[""]</InArgument>
+                                        </Assign.Value>
+                                      </Assign>
+                                    </If.Then>
+                                  </If>
+                                </Sequence>
+                              </ActivityAction>
+                            </ui:ForEach.Body>
+                          </ui:ForEach>
+                        </Sequence>
+                      </ui:CommentOut.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:CommentOut>
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_109">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[itcData]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[new Dictionary(of String, Object)]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Sequence DisplayName="initializeQuote" sap:VirtualizedContainerService.HintSize="690.666666666667,2711.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_32">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="515.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_237">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[initializeQuote]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="515.333333333333,710.666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                        <ui:MultipleAssign.AssignOperations>
+                          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="32">
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("OpportunityID")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Apttus__Related_Opportunity__r.Id").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("OpportunityName")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Apttus__Related_Opportunity__r.Name").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("QuoteType")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">Solution</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("ContractTermInMonths")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Contract_term__c").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("CompanyStatus")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">New</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("CompanyName")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Account__r.Name").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("ITCompanyNumber")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Account__r.IP_Company_Number__c").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_8">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("CompanyDBA")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">
+                                  <Literal x:TypeArguments="x:String" Value="" />
+                                </InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_9">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("Lead")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">Cisco</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_11">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("PrincipalContactName")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Principal_Contact__r.Name").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_12">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("PrincipalContactPhone")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Principal_Contact__r.Phone").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_13">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("PrincipalContactEmail")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Principal_Contact__r.Email").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_14">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("BillingContactName")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Billing_Contact__r.Name").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_15">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("BillingContactPhone")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Billing_Contact__r.Phone").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_16">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("BillingContactEmail")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Billing_Contact__r.Email").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_17">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("TechnicalContactName")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Technical_Contact__r.Name").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_18">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("TechnicalContactPhone")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Technical_Contact__r.Phone").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_19">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("TechnicalContactEmail")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[contactRow("ITC_Technical_Contact__r.Email").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_75">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("SFQuoteId")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Quote__c").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_76">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("SFCompanyId")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Account__r.Id").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_77">
+                              <ui:AssignOperation.To>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("ITCQuote")]</OutArgument>
+                              </ui:AssignOperation.To>
+                              <ui:AssignOperation.Value>
+                                <InArgument x:TypeArguments="x:String">[row("Quote__r.ITC_Quote__c").ToString]</InArgument>
+                              </ui:AssignOperation.Value>
+                            </ui:AssignOperation>
+                          </scg:List>
+                        </ui:MultipleAssign.AssignOperations>
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:MultipleAssign>
+                      <Assign sap:VirtualizedContainerService.HintSize="515.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_345">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[initializeQuote("ContractCountry")]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[country]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="515.333333333333,192.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_21">
+                        <ui:CommentOut.Body>
+                          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_56">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[countryMapping]" DisplayName="Lookup DT - ITC country" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="Country_SF" LookupValue="[row(&quot;Apttus__Related_Opportunity__r.Oppty_Country__c&quot;).ToString]" TargetColumnName="Country_ITC">
+                              <ui:LookupDataTable.CellValue>
+                                <OutArgument x:TypeArguments="x:String">[initializeQuote("ContractCountry")]</OutArgument>
+                              </ui:LookupDataTable.CellValue>
+                            </ui:LookupDataTable>
+                          </Sequence>
+                        </ui:CommentOut.Body>
+                      </ui:CommentOut>
+                      <If Condition="[initializeQuote(&quot;ContractCountry&quot;) is Nothing or initializeQuote(&quot;ContractCountry&quot;)=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="515.333333333333,614" sap2010:WorkflowViewState.IdRef="If_7">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="478.666666666667,419.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_26">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Warn" Message="[&quot;Missing mapping for country: &quot; + row(&quot;Quote__r.SBQQ__BillingCountry__c&quot;).ToString]" />
+                            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436.666666666667,192.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_18">
+                              <ui:CommentOut.Body>
+                                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Throw Exception="[New BusinessRuleException(&quot;Missing mapping for country: &quot; + row(&quot;Quote__r.SBQQ__BillingCountry__c&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                                </Sequence>
+                              </ui:CommentOut.Body>
+                            </ui:CommentOut>
+                          </Sequence>
+                        </If.Then>
+                      </If>
+                      <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[currencyMapping]" DisplayName="Lookup DT- ITC currency" sap:VirtualizedContainerService.HintSize="515.333333333333,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_2" LookupColumnName="Currency_SF" LookupValue="[row(&quot;Apttus__Related_Opportunity__r.Oppty_Currency__c&quot;).ToString]" TargetColumnName="Currency_ITC">
+                        <ui:LookupDataTable.CellValue>
+                          <OutArgument x:TypeArguments="x:String">[initializeQuote("ContractCurrency")]</OutArgument>
+                        </ui:LookupDataTable.CellValue>
+                      </ui:LookupDataTable>
+                      <If Condition="[initializeQuote(&quot;ContractCurrency&quot;) is Nothing or initializeQuote(&quot;ContractCurrency&quot;)=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="515.333333333333,614" sap2010:WorkflowViewState.IdRef="If_8">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="478.666666666667,419.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="436.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Warn" Message="[&quot;Missing mapping for currency: &quot; + row(&quot;Quote__r.CurrencyIsoCode&quot;).ToString]" />
+                            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436.666666666667,192.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_19">
+                              <ui:CommentOut.Body>
+                                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Throw Exception="[New BusinessRuleException(&quot;Missing mapping for currency: &quot; + row(&quot;Quote__r.CurrencyIsoCode&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                                </Sequence>
+                              </ui:CommentOut.Body>
+                            </ui:CommentOut>
+                          </Sequence>
+                        </If.Then>
+                      </If>
+                      <Assign sap:VirtualizedContainerService.HintSize="515.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_266">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:Object">[itcData("InitializeQuote")]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:Object">[initializeQuote]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="690.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;opportunity: &quot; + row(&quot;Apttus__Related_Opportunity__r.Name&quot;).ToString]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_111">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:String">[quoteId]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:String">[row("Quote__c").ToString]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[quoteLineDT]" DisplayName="Private: Get Data SOQL Quote Line" sap:VirtualizedContainerService.HintSize="690.666666666667,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_2" InvalidCommand="No" Response="[response]" SOQL_Command="[&quot;select id, SBQQ__Group__c, SBQQ__Group__r.Location__c, SBQQ__Product__c, SBQQ__Product__r.Product_Category__c, SBQQ__Product__r.Name, Net_Unit_Price__c, SBQQ__Quantity__c, SBQQ__Product__r.Revenue_Type__c, SBQQ__Product__r.ITC_Display_On_Quote__c, SBQQ__Product__r.ProductCode, SBQQ__Product__r.ITC_Id__c, SBQQ__Product__r.ITC_Id_Type__c, ITC_Display_As__c, ITC_Circuit_Bandwidth__c, ITC_Circuit_Notes__c, ITC_Circuit__c, ITC_Circuit_Term__c, ITC_Circuit_VRF__c, ITC_Installation_NCR__c, ITC_Refurbished__c, SBQQ__Group__r.Primary__c, Total_Price__c, ITC_Equipment_Smartnet__c, ITC_Equipment_Smartnet_Package__c, ITC_Equipment_Smartnet_Term__c, ITC_Id__c from SBQQ__QuoteLine__c where SBQQ__Quote__c = '&quot; + quoteId +&quot;' and SBQQ__Product__r.ITC_Id_Type__c in ('Service', 'Equipment') and ITC_Id__c != '' and SBQQ__Product__r.Product_Category__c != 'Bundle Services' and Billing_System__c = 'ITC' and Location__r.Country__c = '&quot; + country + &quot;'&quot;]" />
+                    <If Condition="[quoteLineDT is Nothing OrElse quoteLineDT.Rows.Count = 0]" sap:VirtualizedContainerService.HintSize="690.666666666667,226" sap2010:WorkflowViewState.IdRef="If_17">
+                      <If.Then>
+                        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_341">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[hasITCProducts]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Boolean">False</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </If.Then>
+                      <If.Else>
+                        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_342">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[hasITCProducts]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:Boolean">True</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </If.Else>
+                    </If>
+                    <Sequence DisplayName="Dictionaries Init" sap:VirtualizedContainerService.HintSize="690.666666666667,358" sap2010:WorkflowViewState.IdRef="Sequence_33">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_267">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[locations]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[new List(of Dictionary(of String, String))]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_268">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[services]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[new List(of Dictionary(of String, String))]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                      <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_269">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[locationsDic]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </Sequence>
+                    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[quoteLineDT]" DisplayName="For Each Row - SERVICES" sap:VirtualizedContainerService.HintSize="560,1776" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+                      <ui:ForEachRow.Body>
+                        <ActivityAction x:TypeArguments="sd:DataRow">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="526,1652" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If Condition="[row(&quot;SBQQ__Group__r.Location__c&quot;).ToString &lt;&gt; Nothing and NOT locationsDic.ContainsKey(row(&quot;SBQQ__Group__r.Location__c&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="484,338.666666666667" sap2010:WorkflowViewState.IdRef="If_2">
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="304,154" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_185">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:String">[locationsDic(row("SBQQ__Group__r.Location__c").ToString)]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:String">[row("SBQQ__Group__r.Primary__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                            <Sequence DisplayName="Services" sap:VirtualizedContainerService.HintSize="484,1181.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="x:String" Name="charge" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_270">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[service]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <ui:MultipleAssign DisplayName="Multiple Assign - service dictionary" sap:VirtualizedContainerService.HintSize="334,925.333333333333" sap2010:WorkflowViewState.IdRef="MultipleAssign_2">
+                                <ui:MultipleAssign.AssignOperations>
+                                  <scg:List x:TypeArguments="ui:AssignOperation" Capacity="32">
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_20">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("QuoteSid")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[quoteId]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_21">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ItcServiceId")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_22">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ItcServiceName")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.Name").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_23">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ServiceType")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.ITC_Id_Type__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_24">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ServiceCategory")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.Product_Category__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_25">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("LocationId")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Group__r.Location__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_26">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ShortDescription")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.Name").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_27">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("InvoiceDescription")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.Name").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_28">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("QuotedDescription")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_29">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("Quantity")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Quantity__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_30">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("Rate")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Net_Unit_Price__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_31">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("DateCreated")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_32">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("RevenueType")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.Revenue_Type__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_33">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("DisplayOnQuote")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.ITC_Display_On_Quote__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_34">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("DisplayAs")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Display_As__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_35">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("Refurbished")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Refurbished__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_36">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitBandwidth")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Circuit_Bandwidth__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_37">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitProvider")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Circuit__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_38">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitTerm")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Circuit_Term__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_39">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitInstallationNCR")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Installation_NCR__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_67">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("TotalPrice")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Total_Price__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_68">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("SMARTnet")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Equipment_Smartnet__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_69">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("SMARTnetPackage")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Equipment_Smartnet_Package__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_70">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("SMARTnetTerm")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Equipment_Smartnet_Term__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_71">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitNotes")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Circuit_Notes__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_72">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("CircuitVRF")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Circuit_VRF__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_73">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ProductCode")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("SBQQ__Product__r.ProductCode").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AssignOperation_74">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[service("ITCId")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Id__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                  </scg:List>
+                                </ui:MultipleAssign.AssignOperations>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </ui:MultipleAssign>
+                              <AddToCollection x:TypeArguments="scg:Dictionary(x:String, x:String)" Collection="[services]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_12" Item="[service]" />
+                            </Sequence>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ForEachRow.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:ForEachRow>
+                    <ui:ForEach x:TypeArguments="x:Object" CurrentIndex="{x:Null}" DisplayName="For Each - LOCATIONS" sap:VirtualizedContainerService.HintSize="690.666666666667,2232" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[locationsDic.Keys]">
+                      <ui:ForEach.Body>
+                        <ActivityAction x:TypeArguments="x:Object">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="x:Object" Name="item" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="654,2093.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[locationDT]" DisplayName="Get Data SOQL - get Location" sap:VirtualizedContainerService.HintSize="612,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_6" InvalidCommand="No" Response="[response]" SOQL_Command="[&quot;select ITC_Location_ID__c, Location_DID__c, Address_2__c, City__c, State__c, Country__c, Zip_Code__c, ITC_Solution_Type__c, Location_Notes__c, Street_Number__c, Street_Name__c from location__c where id = '&quot;+item.ToString+&quot;'&quot;]" />
+                            <Assign sap:VirtualizedContainerService.HintSize="612,62" sap2010:WorkflowViewState.IdRef="Assign_186">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="sd:DataRow">[row]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="sd:DataRow">[locationDT.Rows(0)]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                            <Sequence DisplayName="Locations" sap:VirtualizedContainerService.HintSize="612,1837.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                              <Sequence.Variables>
+                                <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="location" />
+                                <Variable x:TypeArguments="ui:GenericValue" Name="State" />
+                                <Variable x:TypeArguments="ui:GenericValue" Name="SolutionType" />
+                              </Sequence.Variables>
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <Assign sap:VirtualizedContainerService.HintSize="570,62" sap2010:WorkflowViewState.IdRef="Assign_305">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[location]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                              <If Condition="[row(&quot;State__c&quot;).ToString = &quot;US Virgin Islands&quot;]" sap:VirtualizedContainerService.HintSize="570,226" sap2010:WorkflowViewState.IdRef="If_14">
+                                <If.Then>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_336">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[State]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">["Virgin Islands"]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Then>
+                                <If.Else>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_337">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[State]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("State__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Else>
+                              </If>
+                              <If Condition="[row(&quot;ITC_Solution_Type__c&quot;).ToString = &quot;&quot; OR row(&quot;ITC_Solution_Type__c&quot;).ToString = Nothing]" sap:VirtualizedContainerService.HintSize="570,226" sap2010:WorkflowViewState.IdRef="If_15">
+                                <If.Then>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_338">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[SolutionType]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">["MaxxConnect SIP Trunking"]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Then>
+                                <If.Else>
+                                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_339">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[SolutionType]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("ITC_Solution_Type__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                </If.Else>
+                              </If>
+                              <ui:MultipleAssign DisplayName="Multiple Assign - location dictionary" sap:VirtualizedContainerService.HintSize="570,894.666666666667" sap2010:WorkflowViewState.IdRef="MultipleAssign_3">
+                                <ui:MultipleAssign.AssignOperations>
+                                  <scg:List x:TypeArguments="ui:AssignOperation" Capacity="32">
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_40">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("LocationId")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[item.ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_41">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("ItcLocationId")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Location_ID__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_42">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("ItcLocationName")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_43">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("LocationEntryType")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_44">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("StreetNumber")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Street_Number__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_45">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("DirectionalPrefix")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_46">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("StreetName")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Street_Name__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_47">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("Sufix")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_48">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("SuitNumber")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_49">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("Address2")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Address_2__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_50">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("City")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("City__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_51">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("State")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[State]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_52">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("ZipCode")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Zip_Code__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_53">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("Status")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_54">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("InstallType")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_55">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("WelcomeCallNeeded")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_56">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("UsersNumber")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_57">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("Nrc")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_58">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("MrcVoice")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_59">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("MrcAccess")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_60">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("InstallStatus")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_61">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("FileLocation")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_62">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("BillingStarted")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">
+                                          <Literal x:TypeArguments="x:String" Value="" />
+                                        </InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_63">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("LocationNotes")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Location_Notes__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_64">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("MainLocation")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[locationsDic(item.ToString)]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_65">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("LocationDID")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("Location_DID__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_66">
+                                      <ui:AssignOperation.To>
+                                        <OutArgument x:TypeArguments="x:String">[location("SolutionType")]</OutArgument>
+                                      </ui:AssignOperation.To>
+                                      <ui:AssignOperation.Value>
+                                        <InArgument x:TypeArguments="x:String">[row("ITC_Solution_Type__c").ToString]</InArgument>
+                                      </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                  </scg:List>
+                                </ui:MultipleAssign.AssignOperations>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </ui:MultipleAssign>
+                              <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[countryMapping]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="570,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_3" LookupColumnName="Country_SF" LookupValue="[row(&quot;Country__c&quot;).ToString]" TargetColumnName="Country_ITC">
+                                <ui:LookupDataTable.CellValue>
+                                  <OutArgument x:TypeArguments="x:String">[location("Country")]</OutArgument>
+                                </ui:LookupDataTable.CellValue>
+                              </ui:LookupDataTable>
+                              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="570,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_20">
+                                <ui:CommentOut.Body>
+                                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="526,518.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <If Condition="[location(&quot;Country&quot;) is Nothing or location(&quot;Country&quot;)=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,430" sap2010:WorkflowViewState.IdRef="If_12">
+                                      <If.Then>
+                                        <Sequence sap:VirtualizedContainerService.HintSize="376,248.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Warn" Message="[&quot;Missing mapping for country: &quot; + row(&quot;Country__c&quot;).ToString]" />
+                                          <Throw Exception="[New BusinessRuleException(&quot;Missing mapping for country: &quot; + row(&quot;Country__c&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                                        </Sequence>
+                                      </If.Then>
+                                    </If>
+                                  </Sequence>
+                                </ui:CommentOut.Body>
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                              </ui:CommentOut>
+                              <AddToCollection x:TypeArguments="scg:Dictionary(x:String, x:String)" Collection="[locations]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="570,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_14" Item="[location]" />
+                            </Sequence>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ForEach.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:ForEach>
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_182">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[itcData("Locations")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Object">[locations]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_183">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Object">[itcData("Services")]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Object">[services]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <Assign sap:VirtualizedContainerService.HintSize="690.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_343">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[out_itcData]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[itcData]</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="690.666666666667,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_16">
+                      <ui:CommentOut.Body>
+                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="702,721.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_51">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="660.666666666667,701.333333333333" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                            <TryCatch.Variables>
+                              <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Name="queueItem" />
+                            </TryCatch.Variables>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <TryCatch.Try>
+                              <Sequence sap:VirtualizedContainerService.HintSize="622,464" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" DisplayName="Get Queue Items" FilterStrategy="Equals" sap:VirtualizedContainerService.HintSize="580,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetQueueItems_1" QueueItemStates="New, InProgress, Failed, Successful, Abandoned, Retried, Deleted" QueueName="UcaaS - Sales Engineer - CPQ2ITC" Reference="[quoteId]" Result="[queueItem]" />
+                                <If Condition="[queueItem.Count = 0 and hasITCProducts]" sap:VirtualizedContainerService.HintSize="580,251.333333333333" sap2010:WorkflowViewState.IdRef="If_13">
+                                  <If.Then>
+                                    <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="UcaaS - Sales Engineer - CPQ2ITC" Reference="[quoteId]">
+                                      <ui:AddQueueItem.ItemInformation>
+                                        <InArgument x:TypeArguments="x:String" x:Key="itcData">[JSONConvert.SerializeObject(itcData)]</InArgument>
+                                      </ui:AddQueueItem.ItemInformation>
+                                    </ui:AddQueueItem>
+                                  </If.Then>
+                                  <If.Else>
+                                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Quote is already in queue: &quot; + quoteId]" />
+                                  </If.Else>
+                                </If>
+                              </Sequence>
+                            </TryCatch.Try>
+                            <TryCatch.Catches>
+                              <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="625,21" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <ActivityAction x:TypeArguments="s:Exception">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                  </ActivityAction.Argument>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Fatal" Message="[&quot;Failed to add to queue: &quot; + quoteId]" />
+                                </ActivityAction>
+                              </Catch>
+                            </TryCatch.Catches>
+                            <TryCatch.Finally>
+                              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436,270" sap2010:WorkflowViewState.IdRef="CommentOut_14">
+                                <ui:CommentOut.Body>
+                                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="392,192" sap2010:WorkflowViewState.IdRef="Sequence_49">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                    <usl:Update_Custom Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" CommandType="SendToAPI" DisplayName="Update Custom Object" sap:VirtualizedContainerService.HintSize="350,100" ID="[quoteId]" sap2010:WorkflowViewState.IdRef="Update_Custom_1" InvalidCommand="No" ObjectName="SBQQ__Quote__c" cmdTYPE="UpdateCustom">
+                                      <usl:Update_Custom.Parameters>
+                                        <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                                          <usl:ParametersArgument>
+                                            <usl:ParametersArgument.Parameter>
+                                              <InArgument x:TypeArguments="x:String">ITC_Quote__c</InArgument>
+                                            </usl:ParametersArgument.Parameter>
+                                            <usl:ParametersArgument.ValueData>
+                                              <InArgument x:TypeArguments="x:String">InProgress</InArgument>
+                                            </usl:ParametersArgument.ValueData>
+                                          </usl:ParametersArgument>
+                                        </scg:List>
+                                      </usl:Update_Custom.Parameters>
+                                    </usl:Update_Custom>
+                                  </Sequence>
+                                </ui:CommentOut.Body>
+                              </ui:CommentOut>
+                            </TryCatch.Finally>
+                          </TryCatch>
+                        </Sequence>
+                      </ui:CommentOut.Body>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                    </ui:CommentOut>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEachRow.Body>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:ForEachRow>
+          </Sequence>
+        </ActivityAction>
+      </usl:Salesforce_Application_Scope.Body>
+    </usl:Salesforce_Application_Scope>
+    <Assign sap:VirtualizedContainerService.HintSize="842.666666666667,62" sap2010:WorkflowViewState.IdRef="Assign_284">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:Int32">[out_numberOfItems]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:Int32">[counter]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="842.666666666667,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="346,2520" sap2010:WorkflowViewState.IdRef="Sequence_18">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Assign sap:VirtualizedContainerService.HintSize="304,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[quoteContacts]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[new List(of Dictionary(of String, String))]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="304,60" sap2010:WorkflowViewState.IdRef="Assign_76">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[circuits]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[new List(of Dictionary(of String, String))]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="304,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+            <Assign.To>
+              <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[equipmentData]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[new List(of Dictionary(of String, String))]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Sequence DisplayName="quoteContacts" sap:VirtualizedContainerService.HintSize="304,66" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="quoteContact" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+              <Assign.To>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[quoteContact]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[quoteContact("ContactId")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[quoteContact("ContactName")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">Brenda Stokes</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[quoteContact("ContactPhone")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">5025544417</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_32">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[quoteContact("Email")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">stokes.brendan@gmail.com</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_33">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[quoteContact("Type")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">Principal</InArgument>
+              </Assign.Value>
+            </Assign>
+            <AddToCollection x:TypeArguments="scg:Dictionary(x:String, x:String)" Collection="[quoteContacts]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_3" Item="[quoteContact]" />
+          </Sequence>
+          <Sequence DisplayName="Circuits" sap:VirtualizedContainerService.HintSize="304,1614" sap2010:WorkflowViewState.IdRef="Sequence_6">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_75">
+              <Assign.To>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[circuit]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_77">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("QuoteCitid")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">10069366</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_78">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("ItcLocationId")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">110862</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_79">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("ItcCircuitId")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">2</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_80">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("CircuitName")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">T1</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_81">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("CircuitType")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">MaxxisCircuits</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_82">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("CircuitCategory")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">NetworkServices</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_83">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("ShortDescription")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">Long Distance Charge/Minute</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_84">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("InvoiceDescription")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String" xml:space="preserve">Long Distance  (The quantity reflects the # of minutes)</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_85">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("QuotedDescription")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_86">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("Mrc")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">0.039</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_87">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("Nrc")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">0.00000</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_88">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("Quantity")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">1</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_89">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("Rate")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">0.03900</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_90">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[circuit("DateCreated")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">12/04/2019</InArgument>
+              </Assign.Value>
+            </Assign>
+            <AddToCollection x:TypeArguments="scg:Dictionary(x:String, x:String)" Collection="[circuits]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_6" Item="[circuit]" />
+          </Sequence>
+          <Sequence DisplayName="EquipmentData" sap:VirtualizedContainerService.HintSize="304,66" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_91">
+              <Assign.To>
+                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[equipments]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(of String, String)]</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_92">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("QuoteEid")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">115263</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_93">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("ItcNeqId")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">593523</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_94">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("EquipmentNumber")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">ATA186</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_95">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("ItcLocationId")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">110862</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_96">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("ItcMid")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">57</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_97">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("Nrc")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">0</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_98">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("Quantity")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">2</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_99">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("Rate")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">0.00</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_100">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("Refurbished")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">N</InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_101">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("Rental")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">
+                  <Literal x:TypeArguments="x:String" Value="" />
+                </InArgument>
+              </Assign.Value>
+            </Assign>
+            <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_102">
+              <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[equipments("DSA")]</OutArgument>
+              </Assign.To>
+              <Assign.Value>
+                <InArgument x:TypeArguments="x:String">N</InArgument>
+              </Assign.Value>
+            </Assign>
+            <AddToCollection x:TypeArguments="scg:Dictionary(x:String, x:String)" Collection="[equipmentData]" DisplayName="Add To Collection" sap:VirtualizedContainerService.HintSize="262,22" sap2010:WorkflowViewState.IdRef="AddToCollection`1_7" Item="[equipments]" />
+          </Sequence>
+          <Assign sap:VirtualizedContainerService.HintSize="304,60" sap2010:WorkflowViewState.IdRef="Assign_104">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Object">[in_Config("QuoteContacts")]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Object">[quoteContacts]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="304,60" sap2010:WorkflowViewState.IdRef="Assign_107">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Object">[in_Config("Circuits")]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Object">[circuits]</InArgument>
+            </Assign.Value>
+          </Assign>
+          <Assign sap:VirtualizedContainerService.HintSize="304,60" sap2010:WorkflowViewState.IdRef="Assign_108">
+            <Assign.To>
+              <OutArgument x:TypeArguments="x:Object">[in_Config("EquipmentData")]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+              <InArgument x:TypeArguments="x:Object">[equipmentData]</InArgument>
+            </Assign.Value>
+          </Assign>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+  </Sequence>
+</Activity>

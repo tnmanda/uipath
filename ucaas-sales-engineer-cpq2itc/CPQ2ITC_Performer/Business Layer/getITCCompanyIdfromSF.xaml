@@ -1,0 +1,103 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="getCompanyLocationITCIdfromSF" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:usl="clr-namespace:UiPathTeam.Salesforce.Lightning_Platform;assembly=UiPathTeam.Salesforce.Activities.Lightning_Platform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="sfCompanyId" Type="InArgument(x:String)" />
+    <x:Property Name="ITCCompanyNumber" Type="OutArgument(x:String)" />
+    <x:Property Name="sf_password" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_username" Type="InArgument(x:String)" />
+    <x:Property Name="sf_consumerSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_consumerKey" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>622,624</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>getCompanyLocationITCIdfromSF_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="46">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="16">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="getCompanyLocationITCIdfromSF" sap:VirtualizedContainerService.HintSize="602,564" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" UserNameProd="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="[sf_consumerKey]" ConsumerSecret="[new System.Net.NetworkCredential(string.Empty, sf_consumerSecret).Password]" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="560,472" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_1" InvalidCommand="No" Password="[new System.Net.NetworkCredential(string.Empty, sf_password).Password]" ServerType="Sandbox" UserName="[sf_username]">
+      <usl:Salesforce_Application_Scope.Body>
+        <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="526,362" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="response" />
+              <Variable x:TypeArguments="sd:DataTable" Name="DT" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usl:Get_Data_SOQL Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT]" DisplayName="Get Data SOQL - Get ITC Company ID" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_1" InvalidCommand="No" Response="[response]" SOQL_Command="[&quot;Select IP_Company_Number__c From Account Where id = '&quot; + sfCompanyId + &quot;'&quot;]" />
+            <If Condition="[String.IsNullOrEmpty(DT.Rows(0)(&quot;IP_Company_Number__c&quot;).ToString) OrElse DT.Rows(0)(&quot;IP_Company_Number__c&quot;).ToString = &quot;ERROR&quot;]" sap:VirtualizedContainerService.HintSize="484,208" sap2010:WorkflowViewState.IdRef="If_5">
+              <If.Else>
+                <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:String">[ITCCompanyNumber]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:String">[DT.Rows(0)("IP_Company_Number__c").ToString]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </usl:Salesforce_Application_Scope.Body>
+    </usl:Salesforce_Application_Scope>
+  </Sequence>
+</Activity>

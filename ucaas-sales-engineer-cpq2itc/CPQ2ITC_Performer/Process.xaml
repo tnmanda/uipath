@@ -1,0 +1,969 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="out_quoteId" Type="OutArgument(x:String)" />
+    <x:Property Name="sf_username" Type="OutArgument(x:String)" />
+    <x:Property Name="sf_password" Type="OutArgument(ss:SecureString)" />
+    <x:Property Name="sf_consumerKey" Type="OutArgument(x:String)" />
+    <x:Property Name="sf_consumerSecret" Type="OutArgument(ss:SecureString)" />
+    <x:Property Name="out_quoteOwnerEmail" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1203.33333333333,9569.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="56">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.Salesforce.Activities.Models</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Newtonsoft.Json.Linq</x:String>
+      <x:String>Newtonsoft.Json</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="42">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce.Activities</AssemblyReference>
+      <AssemblyReference>Newtonsoft.Json</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1213.33333333333,9504.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Name="strStatus">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String" Value="" />
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="x:String" Name="quoteId" />
+      <Variable x:TypeArguments="x:String" Name="transactionResult">
+        <Variable.Default>
+          <Literal x:TypeArguments="x:String" Value="" />
+        </Variable.Default>
+      </Variable>
+      <Variable x:TypeArguments="ui:GenericValue" Name="URLwithQuoteId" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap:VirtualizedContainerService.HintSize="1171.33333333333,9334" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="itcData" />
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="itcInitializeQuote" />
+        <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="itcQuoteContacts" />
+        <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="itcLocations" />
+        <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="itcServices" />
+        <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="itcCircuits" />
+        <Variable x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" Name="itcEquipmentData" />
+        <Variable x:TypeArguments="ui:Browser" Name="browserId" />
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="itcLocation" />
+        <Variable x:TypeArguments="x:Int32" Default="0" Name="locationCount" />
+        <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="locationNameDic" />
+        <Variable x:TypeArguments="x:Boolean" Name="quoteIdExist" />
+        <Variable x:TypeArguments="x:String" Name="ITCDBConnectionString" />
+        <Variable x:TypeArguments="x:String" Name="companyIdTemp" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1129.33333333333,442.666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_9">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="526,364" sap2010:WorkflowViewState.IdRef="Sequence_32">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[in_Config(&quot;Environment&quot;).ToString=&quot;Development&quot;]" DisplayName="If: Set status Failed if in Development environment" sap:VirtualizedContainerService.HintSize="484,272" sap2010:WorkflowViewState.IdRef="If_7">
+              <If.Then>
+                <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status" ErrorType="Business" sap:VirtualizedContainerService.HintSize="284,80.6666666666667" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_2" Reason="Test" Status="Failed" TransactionItem="[in_TransactionItem]">
+                  <ui:SetTransactionStatus.Analytics>
+                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                  </ui:SetTransactionStatus.Analytics>
+                  <ui:SetTransactionStatus.Output>
+                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                  </ui:SetTransactionStatus.Output>
+                </ui:SetTransactionStatus>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <Sequence DisplayName="Sequence - Get ITC database connection string" sap:VirtualizedContainerService.HintSize="1129.33333333333,696.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_27">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="ss:SecureString" Name="db_password" />
+          <Variable x:TypeArguments="x:String" Name="db_userId" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <ui:GetRobotAsset TimeoutMS="{x:Null}" AssetName="ITCDatabaseConnectionString" DisplayName="Get Asset" sap:VirtualizedContainerService.HintSize="444,140.666666666667" sap2010:WorkflowViewState.IdRef="GetRobotAsset_3">
+          <ui:GetRobotAsset.Value>
+            <OutArgument x:TypeArguments="x:String">[ITCDBConnectionString]</OutArgument>
+          </ui:GetRobotAsset.Value>
+        </ui:GetRobotAsset>
+        <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="ITCDatabaseCredentials" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="444,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_7" Password="[db_password]" Username="[db_userId]" />
+        <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Connection_SalesforceAPICredentialsQatest" DisplayName="Get Credential - SF credentials" sap:VirtualizedContainerService.HintSize="444,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_8" Password="[sf_password]" Username="[sf_username]" />
+        <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="Connection_SalesforceConsumerQatest" DisplayName="Get Credential - SF cosumer credentials" sap:VirtualizedContainerService.HintSize="444,80.6666666666667" sap2010:WorkflowViewState.IdRef="GetRobotCredential_9" Password="[sf_consumerSecret]" Username="[sf_consumerKey]" />
+        <Assign sap:VirtualizedContainerService.HintSize="444,62" sap2010:WorkflowViewState.IdRef="Assign_17">
+          <Assign.To>
+            <OutArgument x:TypeArguments="x:String">[ITCDBConnectionString]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="x:String">[ITCDBConnectionString + ";uid=" + db_userId + ";pwd=" + new System.Net.NetworkCredential(string.Empty, db_password).Password]</InArgument>
+          </Assign.Value>
+        </Assign>
+      </Sequence>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1129.33333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_5">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,150.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_28">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:DeserializeJson x:TypeArguments="scg:Dictionary(x:String, x:Object)" DisplayName="Deserialize JSON - itcData" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_2" JsonObject="[itcData]" JsonString="[in_TransactionItem.SpecificContent(&quot;itcData&quot;).ToString]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke CreateITCData workflow" sap:VirtualizedContainerService.HintSize="1129.33333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_21" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\CreateITCData.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <OutArgument x:TypeArguments="x:Int32" x:Key="out_numberOfItems" />
+          <InArgument x:TypeArguments="x:String" x:Key="agreementId">[in_TransactionItem.SpecificContent("AgreementId").ToString]</InArgument>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_itcData">[itcData]</OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="sf_username">[sf_username]</InArgument>
+          <InArgument x:TypeArguments="ss:SecureString" x:Key="sf_password">[sf_password]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="sf_consumerKey">[sf_consumerKey]</InArgument>
+          <InArgument x:TypeArguments="ss:SecureString" x:Key="sf_consumerSecret">[sf_consumerSecret]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="quoteOwnerEmail">[out_quoteOwnerEmail]</OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="country">[in_TransactionItem.SpecificContent("Country").ToString]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <If Condition="[itcData is Nothing OrElse itcData.Count = 0]" sap:VirtualizedContainerService.HintSize="1129.33333333333,254.666666666667" sap2010:WorkflowViewState.IdRef="If_21">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Failed to get Salesforce quote. Agreement Id: &quot; + in_TransactionItem.SpecificContent(&quot;AgreementId&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+        </If.Then>
+      </If>
+      <Assign sap:VirtualizedContainerService.HintSize="1129.33333333333,62" sap2010:WorkflowViewState.IdRef="Assign_18">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[itcInitializeQuote]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[TryCast(itcData("InitializeQuote"), Dictionary(Of String, String))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="CheckMandatoryFieldInDictionary: InitializeQuote" sap:VirtualizedContainerService.HintSize="1129.33333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_11" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\CheckMandatoryFieldsInDictionary.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="s:String[]" x:Key="in_keyArray">[{"OpportunityID", "OpportunityName", "ContractCurrency", "ContractCountry", "ContractTermInMonths", "CompanyName"}]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_dictionary">[itcInitializeQuote]</InArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+      </ui:InvokeWorkflowFile>
+      <Assign sap:VirtualizedContainerService.HintSize="1129.33333333333,62" sap2010:WorkflowViewState.IdRef="Assign_19">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[itcLocations]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[TryCast(itcData("Locations"), List(Of Dictionary(Of String, String)))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1129.33333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_6">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,150.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_29">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:DeserializeJson x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" DisplayName="Deserialize JSON - Locations" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_5" JsonObject="[itcLocations]" JsonString="[itcData(&quot;Locations&quot;).ToString]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <If Condition="[itcLocations.Count = 0]" sap:VirtualizedContainerService.HintSize="1129.33333333333,254.666666666667" sap2010:WorkflowViewState.IdRef="If_19">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Location is required.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+        </If.Then>
+      </If>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1129.33333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="458,341.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_24">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="416,249.333333333333" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[itcLocations]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:String)">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="item" />
+                  </ActivityAction.Argument>
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="CheckMandatoryFieldInDictionary: locations" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_12" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\CheckMandatoryFieldsInDictionary.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="s:String[]" x:Key="in_keyArray">[{"LocationId", "StreetName", "City", "State", "ZipCode", "LocationDID"}]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_dictionary">[item]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                  </ui:InvokeWorkflowFile>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <Assign sap:VirtualizedContainerService.HintSize="1129.33333333333,62" sap2010:WorkflowViewState.IdRef="Assign_20">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[itcServices]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))">[TryCast(itcData("Services"), List(Of Dictionary(Of String, String)))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1129.33333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_7">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,150.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_30">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:DeserializeJson x:TypeArguments="scg:List(scg:Dictionary(x:String, x:String))" DisplayName="Deserialize JSON - Services" sap:VirtualizedContainerService.HintSize="334,58.6666666666667" sap2010:WorkflowViewState.IdRef="DeserializeJson`1_7" JsonObject="[itcServices]" JsonString="[itcData(&quot;Services&quot;).ToString]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
+      <If Condition="[itcServices.Count = 0]" sap:VirtualizedContainerService.HintSize="1129.33333333333,254.666666666667" sap2010:WorkflowViewState.IdRef="If_20">
+        <If.Then>
+          <Throw Exception="[new BusinessRuleException(&quot;Service is required.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+        </If.Then>
+      </If>
+      <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1129.33333333333,252.666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[itcServices]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:String)">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="item" />
+            </ActivityAction.Argument>
+            <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="CheckMandatoryFieldInDictionary: services" sap:VirtualizedContainerService.HintSize="379.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_13" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\CheckMandatoryFieldsInDictionary.xaml">
+              <ui:InvokeWorkflowFile.Arguments>
+                <InArgument x:TypeArguments="s:String[]" x:Key="in_keyArray">[{"ItcServiceName", "ServiceType", "ServiceCategory", "Quantity", "Rate"}]</InArgument>
+                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_dictionary">[item]</InArgument>
+              </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+          </ActivityAction>
+        </ui:ForEach.Body>
+      </ui:ForEach>
+      <Assign DisplayName="Start location dictionary" sap:VirtualizedContainerService.HintSize="1129.33333333333,62" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[locationNameDic]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[New Dictionary(of String, String)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="log in to ITC" DisplayName="Invoke ITC_Login workflow" sap:VirtualizedContainerService.HintSize="1129.33333333333,144.666666666667" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\ITC_Login.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+          <OutArgument x:TypeArguments="ui:Browser" x:Key="out_browserId">[browserId]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeWorkflowFile>
+      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddQuote workflow" sap:VirtualizedContainerService.HintSize="1129.33333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddQuote.xaml">
+        <ui:InvokeWorkflowFile.Arguments>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+          <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_quoteDic">[itcInitializeQuote]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_locationDic">[itcLocations(0)]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_streeName">[locationNameDic(itcLocations(0)("LocationId"))]</OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="companyId">[companyIdTemp]</OutArgument>
+        </ui:InvokeWorkflowFile.Arguments>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:InvokeWorkflowFile>
+      <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each Location" sap:VirtualizedContainerService.HintSize="1129.33333333333,2330.66666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_2" Values="[itcLocations]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:String)">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="item" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1092.66666666667,2192" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="1050.66666666667,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:Int32">[locationCount]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:Int32">[locationCount + 1]</InArgument>
+                </Assign.Value>
+              </Assign>
+              <If Condition="[locationCount &gt; 1]" sap:VirtualizedContainerService.HintSize="1050.66666666667,1863.33333333333" sap2010:WorkflowViewState.IdRef="If_3">
+                <If.Then>
+                  <Sequence sap:VirtualizedContainerService.HintSize="376,352" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Add Location" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cb0bd405-3056-4cac-a636-be10fa8a9564" InformativeScreenshot="6aa90dd534865142d579b2303c36ac13" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Add Location' tag='A' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddLocation workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddLocation.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_locationDic">[item]</InArgument>
+                        <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_quoteDic">[itcInitializeQuote]</InArgument>
+                        <OutArgument x:TypeArguments="x:String" x:Key="out_streetName">[locationNameDic(item("LocationId"))]</OutArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="companyIdTemp">[companyIdTemp]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence sap:VirtualizedContainerService.HintSize="628.666666666667,1699.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddLocation workflow" sap:VirtualizedContainerService.HintSize="586.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddLocation.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_locationDic">[item]</InArgument>
+                        <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="in_quoteDic">[itcInitializeQuote]</InArgument>
+                        <OutArgument x:TypeArguments="x:String" x:Key="out_streetName">[locationNameDic(item("LocationId"))]</OutArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="companyIdTemp">[companyIdTemp]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Quote Summary" sap:VirtualizedContainerService.HintSize="586.666666666667,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b10235e4-dd13-4fe8-9b18-efd53e23a8c1" InformativeScreenshot="50180aaa93cdd642298c8aeaa1003214" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Quote Summary' tag='A' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:UiElementExists DisplayName="Element Exists 'TD'" Exists="[quoteIdExist]" sap:VirtualizedContainerService.HintSize="586.666666666667,106" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
+                      <ui:UiElementExists.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="10aa5795-b0e6-4419-bd59-fea9c4fc2c4b" InformativeScreenshot="b29b048fb2cf38450a08bf0c496ec394" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl css-selector='body&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;table' idx='1' tableRow='4' tag='TABLE' /&gt;&lt;webctrl tableRow='2' tag='TD' aaname='Quote ID:*' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:UiElementExists.Target>
+                    </ui:UiElementExists>
+                    <If Condition="[quoteIdExist]" sap:VirtualizedContainerService.HintSize="586.666666666667,1161.33333333333" sap2010:WorkflowViewState.IdRef="If_10">
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="550,966.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="s:String[]" Name="arr" />
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="innerText" DisplayName="Get Attribute 'TD'" sap:VirtualizedContainerService.HintSize="508,134" sap2010:WorkflowViewState.IdRef="GetAttribute_5">
+                            <ui:GetAttribute.Result>
+                              <OutArgument x:TypeArguments="x:String">[quoteId]</OutArgument>
+                            </ui:GetAttribute.Result>
+                            <ui:GetAttribute.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="6e4a38f4-181a-49d7-9577-c0558ef74034" InformativeScreenshot="cf6cb9c6e695a4e43d00f423b16e7a80" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl css-selector='body&amp;gt;table&amp;gt;tbody&amp;gt;tr&amp;gt;td&amp;gt;table' idx='1' tableRow='4' tag='TABLE' /&gt;&lt;webctrl tableRow='2' tag='TD' innertext='Quote ID: *' /&gt;">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                                <ui:Target.WaitForReady>
+                                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                                </ui:Target.WaitForReady>
+                              </ui:Target>
+                            </ui:GetAttribute.Target>
+                          </ui:GetAttribute>
+                          <Assign sap:VirtualizedContainerService.HintSize="508,62" sap2010:WorkflowViewState.IdRef="Assign_9">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="s:String[]">[arr]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="s:String[]">[quoteId.Split(":"c)]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <Assign sap:VirtualizedContainerService.HintSize="508,62" sap2010:WorkflowViewState.IdRef="Assign_10">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[quoteId]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[arr(1).Trim]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                          <If Condition="[String.IsNullOrEmpty(quoteId)]" sap:VirtualizedContainerService.HintSize="508,226" sap2010:WorkflowViewState.IdRef="If_15">
+                            <If.Then>
+                              <Throw Exception="[new BusinessRuleException(&quot;Failed to get quote Id&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                            </If.Then>
+                            <If.Else>
+                              <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_14">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[out_quoteId]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[quoteId]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                            </If.Else>
+                          </If>
+                          <ui:GetAttribute ContinueOnError="{x:Null}" Attribute="url" DisplayName="Get Attribute - URL" sap:VirtualizedContainerService.HintSize="508,96" sap2010:WorkflowViewState.IdRef="GetAttribute_4">
+                            <ui:GetAttribute.Result>
+                              <OutArgument x:TypeArguments="ui:GenericValue">[URLwithQuoteId]</OutArgument>
+                            </ui:GetAttribute.Result>
+                            <ui:GetAttribute.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2e018dc5-78c1-423e-8ff8-c09f38acacd5" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                                <ui:Target.WaitForReady>
+                                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                                </ui:Target.WaitForReady>
+                              </ui:Target>
+                            </ui:GetAttribute.Target>
+                          </ui:GetAttribute>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="508,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Quote Id: &quot; + quoteId + &quot; URL: &quot; + URLwithQuoteId]" />
+                        </Sequence>
+                      </If.Then>
+                    </If>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="1050.66666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Location &quot;+item(&quot;ItcLocationId&quot;)+&quot; has been added&quot;]" />
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEach>
+      <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="1129.33333333333,710" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[itcServices]">
+        <ui:ForEach.Body>
+          <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:String)">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="item" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="575.333333333333,571.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If Condition="[LocationNameDic.ContainsKey(item(&quot;LocationId&quot;))]" sap:VirtualizedContainerService.HintSize="533.333333333333,386.666666666667" sap2010:WorkflowViewState.IdRef="If_6">
+                <If.Then>
+                  <Switch x:TypeArguments="x:String" DisplayName="Switch - Service Type" Expression="[item(&quot;ServiceType&quot;)]" sap:VirtualizedContainerService.HintSize="496.666666666667,192" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+                    <Sequence x:Key="Service" DisplayName="Add service" sap:VirtualizedContainerService.HintSize="611.333333333333,557.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:String" Name="mrc">
+                          <Variable.Default>
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </Variable.Default>
+                        </Variable>
+                        <Variable x:TypeArguments="x:String" Name="nrc">
+                          <Variable.Default>
+                            <Literal x:TypeArguments="x:String" Value="" />
+                          </Variable.Default>
+                        </Variable>
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <If Condition="[item(&quot;RevenueType&quot;) =&quot;Recurring&quot;]" sap:VirtualizedContainerService.HintSize="570,226" sap2010:WorkflowViewState.IdRef="If_5">
+                        <If.Then>
+                          <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_5">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[mrc]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[item("Rate")]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </If.Then>
+                        <If.Else>
+                          <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_6">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[nrc]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[item("Rate")]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </If.Else>
+                      </If>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddService workflow" sap:VirtualizedContainerService.HintSize="570,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddService.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_service">[item("ItcServiceName")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_mrc">[mrc]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_nrc">[nrc]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_rateSource">custome rate</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_qty">[item("Quantity")]</InArgument>
+                          <InArgument x:TypeArguments="x:Boolean" x:Key="in_active">True</InArgument>
+                          <InArgument x:TypeArguments="x:Boolean" x:Key="in_displayQuote">True</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_quoteDescription">[item("ShortDescription")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_location">[locationNameDic(item("LocationId"))]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ItcId">[item("ITCId")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="quoteId">[quoteId]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="570,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Service &quot;+item(&quot;ItcServiceName&quot;)+&quot; has been added&quot;]" />
+                    </Sequence>
+                    <Sequence x:Key="Equipment" DisplayName="Add equipment" sap:VirtualizedContainerService.HintSize="376,309.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddEquipment workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_9" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddEquipment.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_equipmentType">[item("ServiceCategory")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_model">[item("ItcServiceName")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_smartnet">[item("SMARTnet")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_price">[item("Rate")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_qty">[item("Quantity")]</InArgument>
+                          <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_location">[locationNameDic(item("LocationId"))]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_SMARTnetPackage">[item("SMARTnetPackage")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_SMARTnetTerm">[item("SMARTnetTerm")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ProductCode">[item("ProductCode")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ItcId">[item("ITCId")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Equipment &quot;+item(&quot;ServiceCategory&quot;)+&quot; has been added&quot;]" />
+                    </Sequence>
+                    <Sequence x:Key="Circuit" DisplayName="Add circuit" sap:VirtualizedContainerService.HintSize="376,309.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddCircuit workflow" sap:VirtualizedContainerService.HintSize="334,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_10" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\AddCircuit.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_location">[locationNameDic(item("LocationId"))]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_quantity">[item("Quantity")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_circuitType">[item("ServiceType")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_bandwidth">[item("CircuitBandwidth")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_serviceName">[item("ShortDescription")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_provider">[item("CircuitProvider")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_VRF">[item("CircuitVRF")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_circuitTerm">[item("CircuitTerm")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_loopFee" />
+                          <InArgument x:TypeArguments="x:String" x:Key="in_portFee" />
+                          <InArgument x:TypeArguments="x:String" x:Key="in_IXC" />
+                          <InArgument x:TypeArguments="x:String" x:Key="in_installationNRC">[item("CircuitInstallationNCR")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_quotedMRC">[item("TotalPrice")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_quotedNRC" />
+                          <InArgument x:TypeArguments="ui:CheckType" x:Key="in_active">[CheckType.Check]</InArgument>
+                          <InArgument x:TypeArguments="ui:CheckType" x:Key="in_MPLS" />
+                          <InArgument x:TypeArguments="ui:CheckType" x:Key="in_PNT" />
+                          <InArgument x:TypeArguments="x:String" x:Key="in_notes">[item("CircuitNotes")]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_ItcId">[item("ITCId")]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Circuit &quot;+item(&quot;ShortDescription&quot;)+&quot; has been added&quot;]" />
+                    </Sequence>
+                  </Switch>
+                </If.Then>
+              </If>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="533.333333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="1074.66666666667,811.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <If Condition="[item(&quot;ServiceType&quot;) = &quot;Service&quot; AND locationNameDic.ContainsKey(item(&quot;LocationId&quot;))]" sap:VirtualizedContainerService.HintSize="1032.66666666667,719.333333333333" sap2010:WorkflowViewState.IdRef="If_1">
+                      <If.Then>
+                        <Sequence DisplayName="Add service" sap:VirtualizedContainerService.HintSize="611,559" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="x:String" Name="mrc">
+                              <Variable.Default>
+                                <Literal x:TypeArguments="x:String" Value="" />
+                              </Variable.Default>
+                            </Variable>
+                            <Variable x:TypeArguments="x:String" Name="nrc">
+                              <Variable.Default>
+                                <Literal x:TypeArguments="x:String" Value="" />
+                              </Variable.Default>
+                            </Variable>
+                          </Sequence.Variables>
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <If Condition="[item(&quot;RevenueType&quot;) =&quot;Recurring&quot;]" sap:VirtualizedContainerService.HintSize="569,207" sap2010:WorkflowViewState.IdRef="If_2">
+                            <If.Then>
+                              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[mrc]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[item("Rate")]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                            </If.Then>
+                            <If.Else>
+                              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                                <Assign.To>
+                                  <OutArgument x:TypeArguments="x:String">[nrc]</OutArgument>
+                                </Assign.To>
+                                <Assign.Value>
+                                  <InArgument x:TypeArguments="x:String">[item("Rate")]</InArgument>
+                                </Assign.Value>
+                              </Assign>
+                            </If.Else>
+                          </If>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddService workflow" sap:VirtualizedContainerService.HintSize="569,89" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="AddService.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_service">[item("ItcServiceName")]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_mrc">[mrc]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_nrc">[nrc]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_rateSource">custome rate</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_qty">[item("Quantity")]</InArgument>
+                              <InArgument x:TypeArguments="x:Boolean" x:Key="in_active">True</InArgument>
+                              <InArgument x:TypeArguments="x:Boolean" x:Key="in_displayQuote">True</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_quoteDescription">[item("ShortDescription")]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_location">[locationNameDic(item("LocationId"))]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="569,91" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Service &quot;+item(&quot;ItcServiceName&quot;)+&quot; has been added&quot;]" />
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <Sequence DisplayName="Add equipment" sap:VirtualizedContainerService.HintSize="376,312" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddEquipment workflow" sap:VirtualizedContainerService.HintSize="334,89" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="AddEquipment.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_equipmentType">[item("ServiceCategory")]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_model">[item("ItcServiceName")]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_smartnet">No</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_price">[item("Rate")]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_qty">[item("Quantity")]</InArgument>
+                              <InArgument x:TypeArguments="ui:Browser" x:Key="in_browserId">[browserId]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_location">[locationNameDic(item("locationId"))]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                          </ui:InvokeWorkflowFile>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Equipment &quot;+item(&quot;ServiceCategory&quot;)+&quot; has been added&quot;]" />
+                        </Sequence>
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:CommentOut>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEach.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEach>
+      <Sequence DisplayName="Update Salesforce" sap:VirtualizedContainerService.HintSize="1129.33333333333,2300" sap2010:WorkflowViewState.IdRef="Sequence_15">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="x:String" Name="companyId" />
+          <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="locationIdDic" />
+        </Sequence.Variables>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If Condition="[quoteId &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="641.333333333333,697.333333333333" sap2010:WorkflowViewState.IdRef="If_11">
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="526,502.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_17">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetCompanyId workflow" sap:VirtualizedContainerService.HintSize="484,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_16" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\GetCompanyId.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="quoteId">[quoteId]</InArgument>
+                  <OutArgument x:TypeArguments="x:String" x:Key="companyId">[companyId]</OutArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+              <If Condition="[itcInitializeQuote(&quot;ITCompanyNumber&quot;) = companyId]" sap:VirtualizedContainerService.HintSize="484,256.666666666667" sap2010:WorkflowViewState.IdRef="If_22">
+                <If.Then>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_21">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[companyId]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">
+                        <Literal x:TypeArguments="x:String" Value="" />
+                      </InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Then>
+              </If>
+            </Sequence>
+          </If.Then>
+        </If>
+        <Assign sap:VirtualizedContainerService.HintSize="641.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_11">
+          <Assign.To>
+            <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[locationIdDic]</OutArgument>
+          </Assign.To>
+          <Assign.Value>
+            <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[new Dictionary(Of String, String)]</InArgument>
+          </Assign.Value>
+        </Assign>
+        <ui:ForEach x:TypeArguments="scg:Dictionary(x:String, x:String)" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="641.333333333333,928" sap2010:WorkflowViewState.IdRef="ForEach`1_5" Values="[itcLocations]">
+          <ui:ForEach.Body>
+            <ActivityAction x:TypeArguments="scg:Dictionary(x:String, x:String)">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="item" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="604.666666666667,789.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_18">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:String" Name="ITClocationId" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If Condition="[quoteId &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="562.666666666667,697.333333333333" sap2010:WorkflowViewState.IdRef="If_13">
+                  <If.Then>
+                    <Sequence sap:VirtualizedContainerService.HintSize="526,502.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetLocationId workflow" sap:VirtualizedContainerService.HintSize="484,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_17" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\GetLocationId.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="quoteId">[quoteId]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="locationName">[locationNameDic(item("LocationId"))]</InArgument>
+                          <OutArgument x:TypeArguments="x:String" x:Key="locationId">[ITClocationId]</OutArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="connectionString">[ITCDBConnectionString]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                      <If Condition="[ITClocationId &lt;&gt; &quot;&quot; And item(&quot;ItcLocationId&quot;) &lt;&gt; ITClocationId]" sap:VirtualizedContainerService.HintSize="484,256.666666666667" sap2010:WorkflowViewState.IdRef="If_14">
+                        <If.Then>
+                          <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_12">
+                            <Assign.To>
+                              <OutArgument x:TypeArguments="x:String">[locationIdDic(item("LocationId"))]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                              <InArgument x:TypeArguments="x:String">[ITClocationId]</InArgument>
+                            </Assign.Value>
+                          </Assign>
+                        </If.Then>
+                      </If>
+                    </Sequence>
+                  </If.Then>
+                </If>
+              </Sequence>
+            </ActivityAction>
+          </ui:ForEach.Body>
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+        </ui:ForEach>
+        <If Condition="[URLwithQuoteId &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="641.333333333333,400.666666666667" sap2010:WorkflowViewState.IdRef="If_9">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <If.Then>
+            <Sequence sap:VirtualizedContainerService.HintSize="382.666666666667,206" sap2010:WorkflowViewState.IdRef="Sequence_14">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke UpdateSalesforceQuote workflow" sap:VirtualizedContainerService.HintSize="340.666666666667,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_15" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\UpdateSalesforceQuote.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <InArgument x:TypeArguments="x:String" x:Key="sf_quoteId">[itcInitializeQuote("SFQuoteId")]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="itc_quoteUrl">[URLwithQuoteId]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="companyId">[companyId]</InArgument>
+                  <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="locationIdDic">[locationIdDic]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="SFcompanyId">[itcInitializeQuote("SFCompanyId")]</InArgument>
+                  <InArgument x:TypeArguments="ss:SecureString" x:Key="sf_password">[sf_password]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="sf_username">[sf_username]</InArgument>
+                  <InArgument x:TypeArguments="ss:SecureString" x:Key="sf_consumerSecret">[sf_consumerSecret]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="sf_consumerKey">[sf_consumerKey]</InArgument>
+                  <InArgument x:TypeArguments="x:String" x:Key="in_ITCQuote">[itcInitializeQuote("ITCQuote")]</InArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </Sequence>
+          </If.Then>
+        </If>
+      </Sequence>
+    </Sequence>
+  </Sequence>
+</Activity>

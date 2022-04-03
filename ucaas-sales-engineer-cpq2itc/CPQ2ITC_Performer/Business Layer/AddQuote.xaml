@@ -1,0 +1,1244 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="AddQuote" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_browserId" Type="InArgument(ui:Browser)" />
+    <x:Property Name="in_quoteDic" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="in_locationDic" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="out_streeName" Type="OutArgument(x:String)" />
+    <x:Property Name="connectionString" Type="InArgument(x:String)" />
+    <x:Property Name="companyId" Type="OutArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1831.33333333333,8076.66666666667</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>AddQuote_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="44">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="AddQuote" sap:VirtualizedContainerService.HintSize="1841.33333333333,8012" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:BrowserScope BrowserType="{x:Null}" SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[in_browserId]" DisplayName="Attach Browser" sap:VirtualizedContainerService.HintSize="1799.33333333333,7920" sap2010:WorkflowViewState.IdRef="BrowserScope_1">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence sap:VirtualizedContainerService.HintSize="1765.33333333333,7812" sap2010:WorkflowViewState.IdRef="Sequence_7">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Sequence sap2010:Annotation.AnnotationText="Goes to Add New Quote" DisplayName="Do: Sales-&gt;Quotes Management-&gt;Add New Quote" sap:VirtualizedContainerService.HintSize="1723.33333333333,520.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_2">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Sales" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7ed000ae-830d-4c26-a5a8-2a8d0512821e" InformativeScreenshot="ffe8f772868ce1dc057ca3506f80ae5b" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Sales' tag='A' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Quotes Management" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="cfa4b4f3-2c0e-42d2-930b-3978a1f36a32" InformativeScreenshot="ae710470ddc91c737d31ccd65a41bd2f" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Quotes Management' parentid='nav_2nd' tag='A' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+              <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Add New Quote" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_3" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="70b814f1-e829-4104-9b68-b8c6751dadbf" InformativeScreenshot="aee9f6ccd9ec656a836b4e72216dda76" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl tag='IMG' parentclass='report_hdr' tableCol='3' tableRow='1' /&gt;" TimeoutMS="120000">
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+            </Sequence>
+            <Sequence DisplayName="InitializeQuote" sap:VirtualizedContainerService.HintSize="1723.33333333333,4583.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="x:Boolean" Name="companyExist" />
+                <Variable x:TypeArguments="x:Boolean" Name="quoteTypeExist" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'INPUT  opportunity'" EmptyField="True" sap:VirtualizedContainerService.HintSize="1681.33333333333,134" sap2010:WorkflowViewState.IdRef="TypeInto_1" Text="[in_quoteDic(&quot;OpportunityName&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="922c610b-fe67-4bd2-ba7a-5caec6ee2ee0" InformativeScreenshot="0ddc88834bb3dd1ce20adcfb3065de43" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='opportunity' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:UiElementExists DisplayName="Element Exists 'SELECT  quote_type'" Exists="[quoteTypeExist]" sap:VirtualizedContainerService.HintSize="1681.33333333333,106" sap2010:WorkflowViewState.IdRef="UiElementExists_6">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c1d1877b-dd16-4a07-82cb-5725047fadf6" InformativeScreenshot="88124a440dc227ab6a4b462c8b75c779" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='quote_type' tag='SELECT' innertext=' solutionmoveaddcancel' /&gt;" TimeoutMS="2000">
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+              <If Condition="[Not quoteTypeExist]" sap:VirtualizedContainerService.HintSize="1681.33333333333,295.333333333333" sap2010:WorkflowViewState.IdRef="If_12">
+                <If.Then>
+                  <Sequence sap:VirtualizedContainerService.HintSize="242,114" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:RefreshBrowser Browser="[in_browserId]" DisplayName="Refresh Browser" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="RefreshBrowser_3" />
+                  </Sequence>
+                </If.Then>
+              </If>
+              <ui:UiElementExists DisplayName="Element Exists 'SELECT  quote_type'" Exists="[quoteTypeExist]" sap:VirtualizedContainerService.HintSize="1681.33333333333,106" sap2010:WorkflowViewState.IdRef="UiElementExists_8">
+                <ui:UiElementExists.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="719bd927-0d29-472b-ae85-a87db4a511a7" InformativeScreenshot="88124a440dc227ab6a4b462c8b75c779" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='quote_type' tag='SELECT' innertext=' solutionmoveaddcancel' /&gt;" TimeoutMS="5000">
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:UiElementExists.Target>
+              </ui:UiElementExists>
+              <If Condition="[Not quoteTypeExist]" sap:VirtualizedContainerService.HintSize="1681.33333333333,241.333333333333" sap2010:WorkflowViewState.IdRef="If_13">
+                <If.Then>
+                  <Throw Exception="[new BusinessRuleException(&quot;Quote Type Dropdow has no value.&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </If.Then>
+              </If>
+              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  quote_type'" sap:VirtualizedContainerService.HintSize="1681.33333333333,134" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="solution">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="4">
+                    <x:String>solution</x:String>
+                    <x:String>move</x:String>
+                    <x:String>add</x:String>
+                    <x:String>cancel</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="415d56e4-7f27-4e60-92d3-be51f047033e" InformativeScreenshot="7914612ad61ff7952a5b267c24798de1" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='quote_type' tag='SELECT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  currency_id'" sap:VirtualizedContainerService.HintSize="1681.33333333333,134" sap2010:WorkflowViewState.IdRef="SelectItem_2" Item="[in_quoteDic(&quot;ContractCurrency&quot;)]">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="16">
+                    <x:String> </x:String>
+                    <x:String>United States Dollars (USD)</x:String>
+                    <x:String>Afghanistan Afghanis (AFN)</x:String>
+                    <x:String>Algeria Dinars (DZD)</x:String>
+                    <x:String>Australia Dollars (AUD)</x:String>
+                    <x:String>Bahamas Dollars (BSD)</x:String>
+                    <x:String>Canada Dollars (CAD)</x:String>
+                    <x:String>Euro (EUR)</x:String>
+                    <x:String>Mexico Pesos (MXN)</x:String>
+                    <x:String>Singapore Dollars (SGD)</x:String>
+                    <x:String>United Kingdom Pounds (GBP)</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1c5dc7c9-8482-448a-bd4b-9b62b510ddc5" InformativeScreenshot="e75d468a15bb2d600e21bf44154a2da9" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='currency_id' tag='SELECT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  country_id'" sap:VirtualizedContainerService.HintSize="1681.33333333333,134" sap2010:WorkflowViewState.IdRef="SelectItem_10" Item="[in_quoteDic(&quot;ContractCountry&quot;)]">
+                <ui:SelectItem.Items>
+                  <scg:List x:TypeArguments="x:String" Capacity="50">
+                    <x:String> </x:String>
+                    <x:String>United States of America</x:String>
+                    <x:String>Afghanistan</x:String>
+                    <x:String>Albania</x:String>
+                    <x:String>Algeria</x:String>
+                    <x:String>American Samoa</x:String>
+                    <x:String>Andorra</x:String>
+                    <x:String>Angola</x:String>
+                    <x:String>Anguilla</x:String>
+                    <x:String>Antarctica</x:String>
+                    <x:String>Antigua and Barbuda</x:String>
+                    <x:String>Argentina</x:String>
+                    <x:String>Armenia</x:String>
+                    <x:String>Aruba</x:String>
+                    <x:String>Australia</x:String>
+                    <x:String>Austria</x:String>
+                    <x:String>Azerbaijan</x:String>
+                    <x:String>Bahamas</x:String>
+                    <x:String>Bahrain</x:String>
+                    <x:String>Bangladesh</x:String>
+                    <x:String>Barbados</x:String>
+                    <x:String>Belarus</x:String>
+                    <x:String>Belgium</x:String>
+                    <x:String>Belize</x:String>
+                    <x:String>Benin</x:String>
+                    <x:String>Bermuda</x:String>
+                    <x:String>Bhutan</x:String>
+                    <x:String>Bolivia</x:String>
+                    <x:String>Bosnia and Herzegovina</x:String>
+                    <x:String>Botswana</x:String>
+                    <x:String>Brazil</x:String>
+                    <x:String>British Indian Ocean Territory</x:String>
+                    <x:String>British Virgin Islands</x:String>
+                    <x:String>Brunei</x:String>
+                    <x:String>Bulgaria</x:String>
+                    <x:String>Burkina Faso</x:String>
+                    <x:String>Burma</x:String>
+                    <x:String>Burundi</x:String>
+                    <x:String>Cambodia</x:String>
+                    <x:String>Cameroon</x:String>
+                    <x:String>Canada</x:String>
+                    <x:String>Cape Verde</x:String>
+                    <x:String>Cayman Islands</x:String>
+                    <x:String>Central African Republic</x:String>
+                    <x:String>Chad</x:String>
+                    <x:String>Chile</x:String>
+                    <x:String>China</x:String>
+                    <x:String>Christmas Island</x:String>
+                    <x:String>Cocos (Keeling) Islands</x:String>
+                    <x:String>Colombia</x:String>
+                  </scg:List>
+                </ui:SelectItem.Items>
+                <ui:SelectItem.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b7de821f-5d98-476c-a3b3-920746331cfb" InformativeScreenshot="e29241feb7328eb030954bf22aab0f04" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='country_id' tag='SELECT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:SelectItem.Target>
+              </ui:SelectItem>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'INPUT  term'" EmptyField="True" sap:VirtualizedContainerService.HintSize="1681.33333333333,134" sap2010:WorkflowViewState.IdRef="TypeInto_2" Text="[in_quoteDic(&quot;ContractTermInMonths&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="666c6ae1-966a-404f-8fa8-933adc966f70" InformativeScreenshot="0516c36b5799e22e31e0624100e756d0" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='term' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <If Condition="[in_quoteDic(&quot;ITCompanyNumber&quot;) &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="1681,2622" sap2010:WorkflowViewState.IdRef="If_1">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Sequence sap:VirtualizedContainerService.HintSize="526,892" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <Sequence.Variables>
+                      <Variable x:TypeArguments="x:String" Name="companyName" />
+                    </Sequence.Variables>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetCompanyName workflow" sap:VirtualizedContainerService.HintSize="484,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\GetCompanyName.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="companyId">[in_quoteDic("ITCompanyNumber")]</InArgument>
+                        <OutArgument x:TypeArguments="x:String" x:Key="companyName">[companyName]</OutArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="connectionString">[connectionString]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <If Condition="[companyName &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_8">
+                      <If.Else>
+                        <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[companyName]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[in_quoteDic("CompanyName")]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </If.Else>
+                    </If>
+                    <ui:Click CursorMotionType="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DelayBefore="200" DisplayName="Select Company Status: Existing" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="Click_4" KeyModifiers="None" MouseButton="BTN_LEFT">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="23116640-39cd-4d09-9420-8038681218bc" InformativeScreenshot="3e520fecec3d7e4583b4c23563124dea" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='company_status_existing' tag='INPUT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Existing Company" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="SelectItem_4" Item="[companyName]">
+                      <ui:SelectItem.Items>
+                        <scg:List x:TypeArguments="x:String" Capacity="50">
+                          <x:String>Activision Blizzard, Inc.</x:String>
+                          <x:String>Bermello Ajamil &amp; Partners</x:String>
+                          <x:String>Graymills (Hosted Solution) Budgetary P</x:String>
+                          <x:String>Infinity Pharmaceutical</x:String>
+                          <x:String>02 Test Company</x:String>
+                          <x:String>1-10 Bush Terminal Owner LP</x:String>
+                          <x:String>1111w2wqqws</x:String>
+                          <x:String>123 Company</x:String>
+                          <x:String>1800Accountant</x:String>
+                          <x:String>1888 Mills</x:String>
+                          <x:String>20 20 Eye Care</x:String>
+                          <x:String>21c Museum Hotels</x:String>
+                          <x:String>232-HELP, Inc.</x:String>
+                          <x:String>24/7 Customer Inc.</x:String>
+                          <x:String>2Fred Hanna</x:String>
+                          <x:String>360 Imaging</x:String>
+                          <x:String>3D Systems</x:String>
+                          <x:String>3GTMS</x:String>
+                          <x:String>4 Wheel Parts</x:String>
+                          <x:String>5 Nines</x:String>
+                          <x:String>5th Gear</x:String>
+                          <x:String>722 Redemption Funding, Inc.</x:String>
+                          <x:String>A B Express</x:String>
+                          <x:String>A&amp;M Green Power Group LC</x:String>
+                          <x:String>A-Plus Auto &amp; Truck Repair</x:String>
+                          <x:String>A. H. Belo Management Services, Inc.</x:String>
+                          <x:String>A3i</x:String>
+                          <x:String>AAA Hudson Valley</x:String>
+                          <x:String>AAA National</x:String>
+                          <x:String>AACON General Contracting</x:String>
+                          <x:String>AAMVA</x:String>
+                          <x:String>AARNet Pty Ltd</x:String>
+                          <x:String>AARP</x:String>
+                          <x:String>AB Inc</x:String>
+                          <x:String>Abatix Corp</x:String>
+                          <x:String>Abbott Laboratories</x:String>
+                          <x:String>Abbott Laboratories LTD</x:String>
+                          <x:String>Abbott Manufacturing Singapore PTE LTD</x:String>
+                          <x:String>AbbVie</x:String>
+                          <x:String>abc</x:String>
+                          <x:String>ABC</x:String>
+                          <x:String>ABC</x:String>
+                          <x:String>ABC Company</x:String>
+                          <x:String>ABC Company</x:String>
+                          <x:String>ABC Imaging</x:String>
+                          <x:String>ABC Inc.</x:String>
+                          <x:String>ABC Inc.</x:String>
+                          <x:String>ABC Inc.</x:String>
+                          <x:String>ABC Taxi / American Cab</x:String>
+                          <x:String>ABC Training Company</x:String>
+                        </scg:List>
+                      </ui:SelectItem.Items>
+                      <ui:SelectItem.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f05a98bd-6b76-4cbb-843a-083e1929355c" InformativeScreenshot="dc7ff5ac6cbfed19f5a1ddd4af894e75" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='cid' tag='SELECT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:SelectItem.Target>
+                    </ui:SelectItem>
+                    <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Next Step" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="Click_23" KeyModifiers="None" MouseButton="BTN_LEFT">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="a5159370-ecd0-430f-b8cd-4d70a8d47502" InformativeScreenshot="2922d9c16649e1afdc939587c3ac61e7" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Next Step*' tag='INPUT' type='button' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:Click.Target>
+                    </ui:Click>
+                  </Sequence>
+                </If.Then>
+                <If.Else>
+                  <Sequence sap:VirtualizedContainerService.HintSize="1110,2475" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:Click CursorMotionType="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DelayBefore="200" DisplayName="Select Company Status: New" sap:VirtualizedContainerService.HintSize="1068,106" sap2010:WorkflowViewState.IdRef="Click_5" KeyModifiers="None" MouseButton="BTN_LEFT">
+                      <ui:Click.CursorPosition>
+                        <ui:CursorPosition Position="Center">
+                          <ui:CursorPosition.OffsetX>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetX>
+                          <ui:CursorPosition.OffsetY>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:CursorPosition.OffsetY>
+                        </ui:CursorPosition>
+                      </ui:Click.CursorPosition>
+                      <ui:Click.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="8a2070bd-58ed-4788-8a78-16a75fc64073" InformativeScreenshot="a0f36f915e2fd34fd98216b36265d9a9" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='company_status_new' tag='INPUT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:Click.Target>
+                    </ui:Click>
+                    <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into Company name" EmptyField="True" sap:VirtualizedContainerService.HintSize="1068,134" sap2010:WorkflowViewState.IdRef="TypeInto_3" Text="[in_quoteDic(&quot;CompanyName&quot;)]">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="f79510f1-5457-4483-914e-9d6347d841c1" InformativeScreenshot="f959b155db2b420b323407708af17193" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='company_new_input' tag='INPUT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:TypeInto.Target>
+                    </ui:TypeInto>
+                    <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Into 'INPUT  company_new_dba'" EmptyField="True" sap:VirtualizedContainerService.HintSize="1068,134" sap2010:WorkflowViewState.IdRef="TypeInto_4">
+                      <ui:TypeInto.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="9e981837-61c6-4876-bad7-f16c638f92fa" InformativeScreenshot="59a301558ff72b4c8d977d1fb1d1be17" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='company_new_dba' tag='INPUT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:TypeInto.Target>
+                      <ui:TypeInto.Text>
+                        <InArgument x:TypeArguments="x:String">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                      </ui:TypeInto.Text>
+                    </ui:TypeInto>
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1068,304" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+                      <ui:CommentOut.Body>
+                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,226" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  lead'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="SelectItem_5">
+                            <ui:SelectItem.Item>
+                              <InArgument x:TypeArguments="x:String">
+                                <Literal x:TypeArguments="x:String" Value="" />
+                              </InArgument>
+                            </ui:SelectItem.Item>
+                            <ui:SelectItem.Items>
+                              <scg:List x:TypeArguments="x:String" Capacity="4">
+                                <x:String>Avaya</x:String>
+                                <x:String>Cisco</x:String>
+                              </scg:List>
+                            </ui:SelectItem.Items>
+                            <ui:SelectItem.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b6bc98e4-493b-44cf-a9b3-632bc5c853c3" InformativeScreenshot="04ea3280e950764150947f6bcc7092a3" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='lead' tag='SELECT' /&gt;">
+                                <ui:Target.TimeoutMS>
+                                  <InArgument x:TypeArguments="x:Int32" />
+                                </ui:Target.TimeoutMS>
+                                <ui:Target.WaitForReady>
+                                  <InArgument x:TypeArguments="ui:WaitForReady" />
+                                </ui:Target.WaitForReady>
+                              </ui:Target>
+                            </ui:SelectItem.Target>
+                          </ui:SelectItem>
+                        </Sequence>
+                      </ui:CommentOut.Body>
+                    </ui:CommentOut>
+                    <Sequence sap:VirtualizedContainerService.HintSize="1068,1545" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                      <Sequence.Variables>
+                        <Variable x:TypeArguments="x:Boolean" Name="company" />
+                        <Variable x:TypeArguments="x:Boolean" Name="multipleCompanies" />
+                      </Sequence.Variables>
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Next Step" sap:VirtualizedContainerService.HintSize="1026,106" sap2010:WorkflowViewState.IdRef="Click_21" KeyModifiers="None" MouseButton="BTN_LEFT">
+                        <ui:Click.CursorPosition>
+                          <ui:CursorPosition Position="Center">
+                            <ui:CursorPosition.OffsetX>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetX>
+                            <ui:CursorPosition.OffsetY>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:CursorPosition.OffsetY>
+                          </ui:CursorPosition>
+                        </ui:Click.CursorPosition>
+                        <ui:Click.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c823149e-3e82-4841-954b-bc4964b3a1bd" InformativeScreenshot="2922d9c16649e1afdc939587c3ac61e7" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Next Step*' tag='INPUT' type='button' /&gt;">
+                            <ui:Target.TimeoutMS>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:Target.TimeoutMS>
+                            <ui:Target.WaitForReady>
+                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                            </ui:Target.WaitForReady>
+                          </ui:Target>
+                        </ui:Click.Target>
+                      </ui:Click>
+                      <ui:UiElementExists DisplayName="Element Exists 'INPUT  confirmValidName'" Exists="[multipleCompanies]" sap:VirtualizedContainerService.HintSize="1026,106" sap2010:WorkflowViewState.IdRef="UiElementExists_3">
+                        <ui:UiElementExists.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2ef0e819-452b-4134-b473-d64a1c16cd61" InformativeScreenshot="b6b34321ec3e425d2b0ca46de4856f9c" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='confirmValidName' tag='INPUT' /&gt;" TimeoutMS="3000">
+                            <ui:Target.WaitForReady>
+                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                            </ui:Target.WaitForReady>
+                          </ui:Target>
+                        </ui:UiElementExists.Target>
+                      </ui:UiElementExists>
+                      <ui:UiElementExists DisplayName="Element Exists 'DIV  possibleCompanies'" Exists="[companyExist]" sap:VirtualizedContainerService.HintSize="1026,106" sap2010:WorkflowViewState.IdRef="UiElementExists_10">
+                        <ui:UiElementExists.Target>
+                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="aa04ff42-bbde-44c9-a4c2-722c8e4c8a86" InformativeScreenshot="be14ce95c593ab6b00b09fd84335d47d" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='possibleCompanies' tag='DIV' aaname='This company has already been entered.*' /&gt;">
+                            <ui:Target.TimeoutMS>
+                              <InArgument x:TypeArguments="x:Int32" />
+                            </ui:Target.TimeoutMS>
+                            <ui:Target.WaitForReady>
+                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                            </ui:Target.WaitForReady>
+                          </ui:Target>
+                        </ui:UiElementExists.Target>
+                      </ui:UiElementExists>
+                      <If Condition="[Not companyExist]" sap:VirtualizedContainerService.HintSize="1026,1015" sap2010:WorkflowViewState.IdRef="If_7">
+                        <If.Then>
+                          <Sequence sap:VirtualizedContainerService.HintSize="563,583" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <If Condition="[multipleCompanies]" sap:VirtualizedContainerService.HintSize="521,491" sap2010:WorkflowViewState.IdRef="If_17">
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="376,344" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:Check DelayAfter="{x:Null}" DelayBefore="{x:Null}" Action="Check" AlterIfDisabled="True" ContinueOnError="True" DisplayName="Check 'INPUT  confirmValidName'" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Check_4">
+                                    <ui:Check.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="7bf66ea4-bd0e-4305-90c0-6456187d8b4a" InformativeScreenshot="b6b34321ec3e425d2b0ca46de4856f9c" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='confirmValidName' tag='INPUT' /&gt;" TimeoutMS="2000">
+                                        <ui:Target.WaitForReady>
+                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                        </ui:Target.WaitForReady>
+                                      </ui:Target>
+                                    </ui:Check.Target>
+                                  </ui:Check>
+                                  <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Next Step" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_26" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="416b2848-866c-485e-820f-857aa59dd126" InformativeScreenshot="2922d9c16649e1afdc939587c3ac61e7" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Next Step*' tag='INPUT' type='button' /&gt;">
+                                        <ui:Target.TimeoutMS>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:Target.TimeoutMS>
+                                        <ui:Target.WaitForReady>
+                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                        </ui:Target.WaitForReady>
+                                      </ui:Target>
+                                    </ui:Click.Target>
+                                  </ui:Click>
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                          </Sequence>
+                        </If.Then>
+                        <If.Else>
+                          <Sequence sap:VirtualizedContainerService.HintSize="418,868" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <Sequence sap:VirtualizedContainerService.HintSize="376,776" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                              <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Company exists: &quot; + in_quoteDic(&quot;CompanyName&quot;)]" />
+                              <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetCompanyIdByName workflow" sap:VirtualizedContainerService.HintSize="334,87" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" LogEntry="No" LogExit="No" UnSafe="False" WorkflowFileName="Business Layer\GetCompanyIdByName.xaml">
+                                <ui:InvokeWorkflowFile.Arguments>
+                                  <OutArgument x:TypeArguments="x:String" x:Key="companyId">[companyId]</OutArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="connectionString">[connectionString]</InArgument>
+                                  <InArgument x:TypeArguments="x:String" x:Key="companyName">[in_quoteDic("CompanyName")]</InArgument>
+                                </ui:InvokeWorkflowFile.Arguments>
+                              </ui:InvokeWorkflowFile>
+                              <ui:Click CursorMotionType="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DelayBefore="200" DisplayName="Select Company Status: Existing" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_25" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                <ui:Click.CursorPosition>
+                                  <ui:CursorPosition Position="Center">
+                                    <ui:CursorPosition.OffsetX>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetX>
+                                    <ui:CursorPosition.OffsetY>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetY>
+                                  </ui:CursorPosition>
+                                </ui:Click.CursorPosition>
+                                <ui:Click.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c85b4ca6-f5ea-415f-bb58-b0a3b94ff731" InformativeScreenshot="3e520fecec3d7e4583b4c23563124dea" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='company_status_existing' tag='INPUT' /&gt;">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:Click.Target>
+                              </ui:Click>
+                              <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Existing Company" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="SelectItem_11" Item="[in_quoteDic(&quot;CompanyName&quot;)]">
+                                <ui:SelectItem.Items>
+                                  <scg:List x:TypeArguments="x:String" Capacity="50">
+                                    <x:String>Activision Blizzard, Inc.</x:String>
+                                    <x:String>Bermello Ajamil &amp; Partners</x:String>
+                                    <x:String>Graymills (Hosted Solution) Budgetary P</x:String>
+                                    <x:String>Infinity Pharmaceutical</x:String>
+                                    <x:String>02 Test Company</x:String>
+                                    <x:String>1-10 Bush Terminal Owner LP</x:String>
+                                    <x:String>1111w2wqqws</x:String>
+                                    <x:String>123 Company</x:String>
+                                    <x:String>1800Accountant</x:String>
+                                    <x:String>1888 Mills</x:String>
+                                    <x:String>20 20 Eye Care</x:String>
+                                    <x:String>21c Museum Hotels</x:String>
+                                    <x:String>232-HELP, Inc.</x:String>
+                                    <x:String>24/7 Customer Inc.</x:String>
+                                    <x:String>2Fred Hanna</x:String>
+                                    <x:String>360 Imaging</x:String>
+                                    <x:String>3D Systems</x:String>
+                                    <x:String>3GTMS</x:String>
+                                    <x:String>4 Wheel Parts</x:String>
+                                    <x:String>5 Nines</x:String>
+                                    <x:String>5th Gear</x:String>
+                                    <x:String>722 Redemption Funding, Inc.</x:String>
+                                    <x:String>A B Express</x:String>
+                                    <x:String>A&amp;M Green Power Group LC</x:String>
+                                    <x:String>A-Plus Auto &amp; Truck Repair</x:String>
+                                    <x:String>A. H. Belo Management Services, Inc.</x:String>
+                                    <x:String>A3i</x:String>
+                                    <x:String>AAA Hudson Valley</x:String>
+                                    <x:String>AAA National</x:String>
+                                    <x:String>AACON General Contracting</x:String>
+                                    <x:String>AAMVA</x:String>
+                                    <x:String>AARNet Pty Ltd</x:String>
+                                    <x:String>AARP</x:String>
+                                    <x:String>AB Inc</x:String>
+                                    <x:String>Abatix Corp</x:String>
+                                    <x:String>Abbott Laboratories</x:String>
+                                    <x:String>Abbott Laboratories LTD</x:String>
+                                    <x:String>Abbott Manufacturing Singapore PTE LTD</x:String>
+                                    <x:String>AbbVie</x:String>
+                                    <x:String>abc</x:String>
+                                    <x:String>ABC</x:String>
+                                    <x:String>ABC</x:String>
+                                    <x:String>ABC Company</x:String>
+                                    <x:String>ABC Company</x:String>
+                                    <x:String>ABC Imaging</x:String>
+                                    <x:String>ABC Inc.</x:String>
+                                    <x:String>ABC Inc.</x:String>
+                                    <x:String>ABC Inc.</x:String>
+                                    <x:String>ABC Taxi / American Cab</x:String>
+                                    <x:String>ABC Training Company</x:String>
+                                  </scg:List>
+                                </ui:SelectItem.Items>
+                                <ui:SelectItem.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="199d86a7-8625-4dcf-a4a3-f5774a913d90" InformativeScreenshot="dc7ff5ac6cbfed19f5a1ddd4af894e75" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='cid' tag='SELECT' /&gt;">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:SelectItem.Target>
+                              </ui:SelectItem>
+                              <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Next Step" sap:VirtualizedContainerService.HintSize="334,106" sap2010:WorkflowViewState.IdRef="Click_27" KeyModifiers="None" MouseButton="BTN_LEFT">
+                                <ui:Click.CursorPosition>
+                                  <ui:CursorPosition Position="Center">
+                                    <ui:CursorPosition.OffsetX>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetX>
+                                    <ui:CursorPosition.OffsetY>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:CursorPosition.OffsetY>
+                                  </ui:CursorPosition>
+                                </ui:Click.CursorPosition>
+                                <ui:Click.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="c4732c46-6c1c-4af1-a2ad-e6fee4a5e062" InformativeScreenshot="2922d9c16649e1afdc939587c3ac61e7" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl aaname='Next Step*' tag='INPUT' type='button' /&gt;">
+                                    <ui:Target.TimeoutMS>
+                                      <InArgument x:TypeArguments="x:Int32" />
+                                    </ui:Target.TimeoutMS>
+                                    <ui:Target.WaitForReady>
+                                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                                    </ui:Target.WaitForReady>
+                                  </ui:Target>
+                                </ui:Click.Target>
+                              </ui:Click>
+                            </Sequence>
+                          </Sequence>
+                        </If.Else>
+                      </If>
+                    </Sequence>
+                  </Sequence>
+                </If.Else>
+              </If>
+              <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1681,51" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                <ui:CommentOut.Body>
+                  <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,574" sap2010:WorkflowViewState.IdRef="Sequence_30">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  rsm'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="SelectItem_6" Item="Adams, Scott">
+                      <ui:SelectItem.Items>
+                        <scg:List x:TypeArguments="x:String" Capacity="50">
+                          <x:String>Adams, Scott</x:String>
+                          <x:String>Bailey, Robert</x:String>
+                          <x:String>Ballos, Thomas</x:String>
+                          <x:String>Bekavac, Talisha</x:String>
+                          <x:String>Bernal, Juan</x:String>
+                          <x:String>Bradshaw, William</x:String>
+                          <x:String>Brashear, Brian</x:String>
+                          <x:String>Brierly, Katelyn</x:String>
+                          <x:String>Brodhagen, Joclyn</x:String>
+                          <x:String>Brooks, Greg</x:String>
+                          <x:String>Brown, Corey</x:String>
+                          <x:String>Bruseau, Jason</x:String>
+                          <x:String>Bryant, Dustin</x:String>
+                          <x:String>Callison, David</x:String>
+                          <x:String>Carney, Chris</x:String>
+                          <x:String>Casalena, Ezio</x:String>
+                          <x:String>Cassidy, Edmond</x:String>
+                          <x:String>Conti, Jessica</x:String>
+                          <x:String>Contract, Admin</x:String>
+                          <x:String>Coval, Steven</x:String>
+                          <x:String>Cowgur, Brian</x:String>
+                          <x:String>Creswell, Brandi</x:String>
+                          <x:String>Cumberworth, Alasdair</x:String>
+                          <x:String>Cunningham, Adam</x:String>
+                          <x:String>Dahlquist, Mitch</x:String>
+                          <x:String>Davis, Andrew</x:String>
+                          <x:String>Davis, Keli</x:String>
+                          <x:String>Delmonte, Gary</x:String>
+                          <x:String>Devine, Brian</x:String>
+                          <x:String>DiBello, Martin</x:String>
+                          <x:String>Dimmick, Adam</x:String>
+                          <x:String>Dresser, Katie</x:String>
+                          <x:String>Earl, Vickie</x:String>
+                          <x:String>Early, Angela</x:String>
+                          <x:String>Evans, Lyndon</x:String>
+                          <x:String>Fackler, Ryan</x:String>
+                          <x:String>Feldstern, Yonatan</x:String>
+                          <x:String>Ferguson, Shay</x:String>
+                          <x:String>Fink, Rob</x:String>
+                          <x:String>Fitch, Mike</x:String>
+                          <x:String>Florence, Mark</x:String>
+                          <x:String>Fox, Johanna</x:String>
+                          <x:String>Gallman, Pamela</x:String>
+                          <x:String>Garvey, Cindy</x:String>
+                          <x:String>Garvin, Mark</x:String>
+                          <x:String>Gherardi, Joseph</x:String>
+                          <x:String>Gillies, Emma</x:String>
+                          <x:String>Gilmore, Rebekah</x:String>
+                          <x:String>Giokas, Margo</x:String>
+                          <x:String>Glass, Chris</x:String>
+                        </scg:List>
+                      </ui:SelectItem.Items>
+                      <ui:SelectItem.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="17608003-d287-4a91-ac91-45a5af7ca355" InformativeScreenshot="0f8eadf418fbb2e94288827c1dedbba6" Selector="&lt;html omit:title='Smoothstone ITC - Itc-dev&amp;apos;s Version' /&gt;&lt;webctrl id='rsm' tag='SELECT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:SelectItem.Target>
+                    </ui:SelectItem>
+                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  sde'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="SelectItem_7" Item="Abrahamson, Allen">
+                      <ui:SelectItem.Items>
+                        <scg:List x:TypeArguments="x:String" Capacity="50">
+                          <x:String>Abrahamson, Allen</x:String>
+                          <x:String>Anderson, Steven</x:String>
+                          <x:String>Bekavac, Talisha</x:String>
+                          <x:String>Belke, Chris</x:String>
+                          <x:String>Bergantzel, Nancy</x:String>
+                          <x:String>Bonn, Brian</x:String>
+                          <x:String>Bradshaw, William</x:String>
+                          <x:String>Brierly, Katelyn</x:String>
+                          <x:String>Brodhagen, Joclyn</x:String>
+                          <x:String>Brown, Denise</x:String>
+                          <x:String>Brown, Corey</x:String>
+                          <x:String>Burns, Nicholas</x:String>
+                          <x:String>Butler, Corey</x:String>
+                          <x:String>Carney, Chris</x:String>
+                          <x:String>Carroll, Belinda</x:String>
+                          <x:String>Cassidy, Edmond</x:String>
+                          <x:String>Chhay, Mony</x:String>
+                          <x:String>Choi, Roy</x:String>
+                          <x:String>Chopdekar, Paresh</x:String>
+                          <x:String>Combs, April</x:String>
+                          <x:String>Conti, Jessica</x:String>
+                          <x:String>Contract, Admin</x:String>
+                          <x:String>Cowgur, Brian</x:String>
+                          <x:String>Creswell, Brandi</x:String>
+                          <x:String>Cunningham, Adam</x:String>
+                          <x:String>Depew, Marcus</x:String>
+                          <x:String>Devine, Brian</x:String>
+                          <x:String>Dimmick, Adam</x:String>
+                          <x:String>Doubek, Michael</x:String>
+                          <x:String>Dresser, Katie</x:String>
+                          <x:String>Dudley, Rick</x:String>
+                          <x:String>Earl, Vickie</x:String>
+                          <x:String>Early, Angela</x:String>
+                          <x:String>Fackler, Ryan</x:String>
+                          <x:String>Ferguson, Shay</x:String>
+                          <x:String>Florence, Mark</x:String>
+                          <x:String>Fox, Johanna</x:String>
+                          <x:String>Garvey, Cindy</x:String>
+                          <x:String>Garvin, Mark</x:String>
+                          <x:String>Gherardi, Joseph</x:String>
+                          <x:String>Gilmore, Rebekah</x:String>
+                          <x:String>Gomez, Christopher</x:String>
+                          <x:String>Gonzalez, Marina</x:String>
+                          <x:String>Grace, Dan</x:String>
+                          <x:String>Green, Sean</x:String>
+                          <x:String>Greene, Carl</x:String>
+                          <x:String>Hake, Everett</x:String>
+                          <x:String>Hall, Dana</x:String>
+                          <x:String>Hannan, Lori</x:String>
+                          <x:String>Harnist, Robin</x:String>
+                        </scg:List>
+                      </ui:SelectItem.Items>
+                      <ui:SelectItem.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="28716e9d-79d3-4f12-bd69-2b88efb326cd" InformativeScreenshot="c07b81e9a77dbfa56c62ecec5da9ade2" Selector="&lt;html omit:title='Smoothstone ITC - Itc-dev&amp;apos;s Version' /&gt;&lt;webctrl id='sde' tag='SELECT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:SelectItem.Target>
+                    </ui:SelectItem>
+                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AlterIfDisabled="True" DisplayName="Select Item 'SELECT  partner'" sap:VirtualizedContainerService.HintSize="334,134" sap2010:WorkflowViewState.IdRef="SelectItem_8" Item="Call Tele">
+                      <ui:SelectItem.Items>
+                        <scg:List x:TypeArguments="x:String" Capacity="50">
+                          <x:String>5 Nines</x:String>
+                          <x:String>A. H. Belo Management Services, Inc.</x:String>
+                          <x:String>Abilita Inc.</x:String>
+                          <x:String>Absolon</x:String>
+                          <x:String>Access Wireless</x:String>
+                          <x:String>Alliance Datacom</x:String>
+                          <x:String>AmTel Audit</x:String>
+                          <x:String>ATC Inc.</x:String>
+                          <x:String>Avatar Computer Solutions, Inc</x:String>
+                          <x:String>AVVID Communications Group, Inc.</x:String>
+                          <x:String>Beltz Test, Inc.</x:String>
+                          <x:String>Better Cost Control</x:String>
+                          <x:String>Better Quality Business Systems</x:String>
+                          <x:String>Blackwell Consulting</x:String>
+                          <x:String>Blade Technologies</x:String>
+                          <x:String>Bohm &amp; Assoc.</x:String>
+                          <x:String>Braver LLC</x:String>
+                          <x:String>Burwood Group</x:String>
+                          <x:String>Byte Consulting</x:String>
+                          <x:String>Call Tele</x:String>
+                          <x:String>CCS</x:String>
+                          <x:String>Chad Donohue</x:String>
+                          <x:String>Common Sense Solutions</x:String>
+                          <x:String>Communications Resource Group</x:String>
+                          <x:String>Communications Resource Inc.</x:String>
+                          <x:String>Converged Network Services Group</x:String>
+                          <x:String>Corporate IT Solutions</x:String>
+                          <x:String>CRI</x:String>
+                          <x:String>Data Consultants</x:String>
+                          <x:String>DataCom</x:String>
+                          <x:String>Datroo</x:String>
+                          <x:String>DigiTel</x:String>
+                          <x:String>Directline Communication Inc</x:String>
+                          <x:String>Diverse Networks</x:String>
+                          <x:String>DSPI</x:String>
+                          <x:String>Evolution Designs</x:String>
+                          <x:String>Express Information Systems</x:String>
+                          <x:String>FST Associates</x:String>
+                          <x:String>G3 Technologies</x:String>
+                          <x:String>Gatestone Group</x:String>
+                          <x:String>Group9 Communications</x:String>
+                          <x:String>Groveline</x:String>
+                          <x:String>Hegemony, Inc</x:String>
+                          <x:String>Hippo Group</x:String>
+                          <x:String>Infinite Technology Group</x:String>
+                          <x:String>Integral Choice</x:String>
+                          <x:String>Ipiphany</x:String>
+                          <x:String>ISC</x:String>
+                          <x:String>Island Technology Networks</x:String>
+                          <x:String>JDM Infrastructure</x:String>
+                        </scg:List>
+                      </ui:SelectItem.Items>
+                      <ui:SelectItem.Target>
+                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d2757e6e-429a-4a71-9453-472b5a430843" InformativeScreenshot="c09f7f886792f1b0084e8c1693c85ca5" Selector="&lt;html omit:title='Smoothstone ITC - Itc-dev&amp;apos;s Version' /&gt;&lt;webctrl id='partner' tag='SELECT' /&gt;">
+                          <ui:Target.TimeoutMS>
+                            <InArgument x:TypeArguments="x:Int32" />
+                          </ui:Target.TimeoutMS>
+                          <ui:Target.WaitForReady>
+                            <InArgument x:TypeArguments="ui:WaitForReady" />
+                          </ui:Target.WaitForReady>
+                        </ui:Target>
+                      </ui:SelectItem.Target>
+                    </ui:SelectItem>
+                  </Sequence>
+                </ui:CommentOut.Body>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+              </ui:CommentOut>
+            </Sequence>
+            <Sequence sap2010:Annotation.AnnotationText="Adds Contacts (Principal, billing and Technical) Details (Name, Phone, Email)" DisplayName="Contacts" sap:VirtualizedContainerService.HintSize="1723,2536" sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <Sequence.Variables>
+                <Variable x:TypeArguments="ui:GenericValue" Name="contractName" />
+                <Variable x:TypeArguments="ui:GenericValue" Name="contractName3" />
+              </Sequence.Variables>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Contract Name 1" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_5" Text="[in_quoteDic(&quot;PrincipalContactName&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="8c005c3d-4bc3-42d8-b8ed-1de88f519fe0" InformativeScreenshot="6b96d3a8ff5fd50cfcfaba2df4e5e8a3" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='principal_contact_name' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Principal Contact Phone" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_6" Text="[in_quoteDic(&quot;PrincipalContactPhone&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="dc44da69-afcc-4690-86e8-119fff7c4eda" InformativeScreenshot="1527508642c5868fc15f2cc72f832d7d" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='principal_contact_phone' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Principal Contact Email" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_7" Text="[in_quoteDic(&quot;PrincipalContactEmail&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1bc58b67-4d25-4722-999e-ab3d8c639ab9" InformativeScreenshot="7c58a0b805288b3f4f2b9793bfaeefb5" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='principal_contact_email' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Contact Name 2" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_8" Text="[in_quoteDic(&quot;BillingContactName&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="04b2050c-83cb-4cb0-9863-2fdbdeb33654" InformativeScreenshot="4104a6d73c153a74850e9f2256300078" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='billing_contact_name' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Billing Contact Phone" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_9" Text="[in_quoteDic(&quot;BillingContactPhone&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="ae3b0408-9068-4bbc-97b8-3a66eb66084d" InformativeScreenshot="36341c8783e6e9519d4a824a2725cee6" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='billing_contact_phone' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Billing Contact Email" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_10" Text="[in_quoteDic(&quot;BillingContactEmail&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="41d03fc2-70d0-4aa6-aec3-394ceadc07b5" InformativeScreenshot="b4f2b060ee0180dca3877a4a2d175ec6" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='billing_contact_email' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <If Condition="[in_quoteDic(&quot;TechnicalContactName&quot;) = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_3">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[in_quoteDic("TechnicalContactName")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">x</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Then>
+              </If>
+              <If Condition="[in_quoteDic(&quot;TechnicalContactPhone&quot;) = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_14">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[in_quoteDic("TechnicalContactPhone")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">x</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Then>
+              </If>
+              <If Condition="[in_quoteDic(&quot;TechnicalContactEmail&quot;) = &quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,207" sap2010:WorkflowViewState.IdRef="If_15">
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <If.Then>
+                  <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="x:String">[in_quoteDic("TechnicalContactEmail")]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="x:String">x</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                </If.Then>
+              </If>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Contact Name 3" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_11" Text="[in_quoteDic(&quot;TechnicalContactName&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="e337b1cd-a3df-41e1-9274-da39f74a97ae" InformativeScreenshot="f6d445285b419cb26db13146c895d77c" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='technical_contact_name' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Technical Contact Phone" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_12" Text="[in_quoteDic(&quot;TechnicalContactPhone&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="0e0a0071-f647-4253-9cea-bb27b00f1800" InformativeScreenshot="7c40eb9b5179c8ecd527abdee28bc6fd" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='technical_contact_phone' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:TypeInto ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateType="{x:Null}" Activate="True" AlterIfDisabled="True" DisplayName="Type Technical Contact Email" EmptyField="True" sap:VirtualizedContainerService.HintSize="484,134" sap2010:WorkflowViewState.IdRef="TypeInto_13" Text="[in_quoteDic(&quot;TechnicalContactEmail&quot;)]">
+                <ui:TypeInto.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="1e1dde7a-90da-4173-9bb9-796b11e0fc35" InformativeScreenshot="529fe4557851e19e2b9bac67fea0ec30" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl id='technical_contact_email' tag='INPUT' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:TypeInto.Target>
+              </ui:TypeInto>
+              <ui:Click CursorMotionType="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" SimulateClick="{x:Null}" AlterIfDisabled="True" ClickType="CLICK_SINGLE" DisplayName="Click Next Step" sap:VirtualizedContainerService.HintSize="484,106" sap2010:WorkflowViewState.IdRef="Click_7" KeyModifiers="None" MouseButton="BTN_LEFT">
+                <ui:Click.CursorPosition>
+                  <ui:CursorPosition Position="Center">
+                    <ui:CursorPosition.OffsetX>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetX>
+                    <ui:CursorPosition.OffsetY>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:CursorPosition.OffsetY>
+                  </ui:CursorPosition>
+                </ui:Click.CursorPosition>
+                <ui:Click.Target>
+                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="fddce7a4-061f-44dc-98d2-78c661d5110e" InformativeScreenshot="7706a5714bf5c5f4b0ad6b896cf56d8f" Selector="&lt;html app='chrome.exe' title='Smoothstone ITC*' /&gt;&lt;webctrl tag='INPUT' type='submit' /&gt;">
+                    <ui:Target.TimeoutMS>
+                      <InArgument x:TypeArguments="x:Int32" />
+                    </ui:Target.TimeoutMS>
+                    <ui:Target.WaitForReady>
+                      <InArgument x:TypeArguments="ui:WaitForReady" />
+                    </ui:Target.WaitForReady>
+                  </ui:Target>
+                </ui:Click.Target>
+              </ui:Click>
+            </Sequence>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+    </ui:BrowserScope>
+  </Sequence>
+</Activity>

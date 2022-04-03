@@ -1,0 +1,272 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="UpdateSalesforceQuote" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usl="clr-namespace:UiPathTeam.Salesforce.Lightning_Platform;assembly=UiPathTeam.Salesforce.Activities.Lightning_Platform" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="sf_quoteId" Type="InArgument(x:String)" />
+    <x:Property Name="itc_quoteUrl" Type="InArgument(x:String)" />
+    <x:Property Name="companyId" Type="InArgument(x:String)" />
+    <x:Property Name="locationIdDic" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="SFcompanyId" Type="InArgument(x:String)" />
+    <x:Property Name="sf_password" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_username" Type="InArgument(x:String)" />
+    <x:Property Name="sf_consumerSecret" Type="InArgument(ss:SecureString)" />
+    <x:Property Name="sf_consumerKey" Type="InArgument(x:String)" />
+    <x:Property Name="in_ITCQuote" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>942.666666666667,3250</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>UpdateSalesforceQuote_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="48">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+      <x:String>UiPathTeam.Salesforce.Lightning_Platform</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPathTeam.Salesforce.Activities.Lightning_Platform</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="UpdateSalesforceQuote" sap:VirtualizedContainerService.HintSize="952.666666666667,3185.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" IsProduction="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" TimeOut="{x:Null}" UserNameProd="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="[sf_consumerKey]" ConsumerSecret="[new System.Net.NetworkCredential(string.Empty, sf_consumerSecret).Password]" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="910.666666666667,3093.33333333333" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_1" InvalidCommand="No" OverWriteServerType="False" Password="[new System.Net.NetworkCredential(string.Empty, sf_password).Password]" ServerType="Sandbox" UserName="[sf_username]">
+      <usl:Salesforce_Application_Scope.Body>
+        <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="876.666666666667,2983.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="response" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If Condition="[companyId &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="834.666666666667,800" sap2010:WorkflowViewState.IdRef="If_1">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="798,605.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <usl:Update_Account Result="{x:Null}" ValidConnection="{x:Null}" AccountID="[SFcompanyId]" DisplayName="Update Account" sap:VirtualizedContainerService.HintSize="756,60.6666666666667" sap2010:WorkflowViewState.IdRef="Update_Account_1" InvalidCommand="No" Response="[response]" SForceAutoAssign="True_Default" cmdTYPE="UpdateAccount">
+                    <usl:Update_Account.Parameters>
+                      <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                        <usl:ParametersArgument>
+                          <usl:ParametersArgument.Parameter>
+                            <InArgument x:TypeArguments="x:String">IP_Company_Number__c</InArgument>
+                          </usl:ParametersArgument.Parameter>
+                          <usl:ParametersArgument.ValueData>
+                            <InArgument x:TypeArguments="x:String">[companyId]</InArgument>
+                          </usl:ParametersArgument.ValueData>
+                        </usl:ParametersArgument>
+                      </scg:List>
+                    </usl:Update_Account.Parameters>
+                  </usl:Update_Account>
+                  <If Condition="[response &lt;&gt; &quot;UPDATE COMPLETED&quot;]" sap:VirtualizedContainerService.HintSize="756,412.666666666667" sap2010:WorkflowViewState.IdRef="If_3">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="376,248.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Failed to update SF company &quot; + SFcompanyId + &quot; &quot; + companyId]" />
+                        <Throw Exception="[new BusinessRuleException(&quot;Failed to update SF company &quot; +  SFcompanyId + &quot; &quot; + companyId)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Update SF company &quot; + SFcompanyId + &quot; &quot; + companyId]" />
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Then>
+            </If>
+            <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each" sap:VirtualizedContainerService.HintSize="834.666666666667,783.333333333333" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[locationIdDic.Keys]">
+              <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="x:String">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="x:String" Name="item" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="798,644.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <usl:Update_Custom Result="{x:Null}" ValidConnection="{x:Null}" CommandType="SendToAPI" DisplayName="Update Custom Object" sap:VirtualizedContainerService.HintSize="756,100" ID="[item]" sap2010:WorkflowViewState.IdRef="Update_Custom_2" InvalidCommand="No" ObjectName="Location__c" Response="[response]" cmdTYPE="UpdateCustom">
+                      <usl:Update_Custom.Parameters>
+                        <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">ITC_Location_ID__c</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">[locationIdDic(item)]</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                        </scg:List>
+                      </usl:Update_Custom.Parameters>
+                    </usl:Update_Custom>
+                    <If Condition="[response &lt;&gt; &quot;UPDATE COMPLETED&quot;]" sap:VirtualizedContainerService.HintSize="756,412.666666666667" sap2010:WorkflowViewState.IdRef="If_4">
+                      <If.Then>
+                        <Sequence sap:VirtualizedContainerService.HintSize="376,248.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Failed to update SF location &quot; + item + &quot; &quot; + locationIdDic(item)]" />
+                          <Throw Exception="[new BusinessRuleException(&quot;Failed to update SF location &quot; +  item + &quot; &quot; + locationIdDic(item))]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                        </Sequence>
+                      </If.Then>
+                      <If.Else>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Update SF location &quot; + item + &quot; &quot; + locationIdDic(item)]" />
+                      </If.Else>
+                    </If>
+                  </Sequence>
+                </ActivityAction>
+              </ui:ForEach.Body>
+            </ui:ForEach>
+            <If Condition="[itc_quoteUrl &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="834.666666666667,1228" sap2010:WorkflowViewState.IdRef="If_7">
+              <If.Then>
+                <Sequence sap:VirtualizedContainerService.HintSize="798,1033.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[in_ITCQuote &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="756,348.666666666667" sap2010:WorkflowViewState.IdRef="If_8">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="304,154" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Assign sap:VirtualizedContainerService.HintSize="262,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+                          <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[itc_quoteUrl]</OutArgument>
+                          </Assign.To>
+                          <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[in_ITCQuote + ";" + itc_quoteUrl]</InArgument>
+                          </Assign.Value>
+                        </Assign>
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_13">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </Sequence>
+                    </If.Else>
+                  </If>
+                  <usl:Update_Custom Result="{x:Null}" ValidConnection="{x:Null}" CommandType="SendToAPI" DisplayName="Update Custom Object" sap:VirtualizedContainerService.HintSize="756,100" ID="[sf_quoteId]" sap2010:WorkflowViewState.IdRef="Update_Custom_4" InvalidCommand="No" ObjectName="SBQQ__Quote__c" Response="[response]" cmdTYPE="UpdateCustom">
+                    <usl:Update_Custom.Parameters>
+                      <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                        <usl:ParametersArgument>
+                          <usl:ParametersArgument.Parameter>
+                            <InArgument x:TypeArguments="x:String">ITC_Quote__c</InArgument>
+                          </usl:ParametersArgument.Parameter>
+                          <usl:ParametersArgument.ValueData>
+                            <InArgument x:TypeArguments="x:String">[itc_quoteUrl]</InArgument>
+                          </usl:ParametersArgument.ValueData>
+                        </usl:ParametersArgument>
+                        <usl:ParametersArgument>
+                          <usl:ParametersArgument.Parameter>
+                            <InArgument x:TypeArguments="x:String">ITC_Quote_Created_Date__c</InArgument>
+                          </usl:ParametersArgument.Parameter>
+                          <usl:ParametersArgument.ValueData>
+                            <InArgument x:TypeArguments="x:String">[Now.ToString("yyyy-MM-ddTHH:mm:ss.sssZ")]</InArgument>
+                          </usl:ParametersArgument.ValueData>
+                        </usl:ParametersArgument>
+                      </scg:List>
+                    </usl:Update_Custom.Parameters>
+                  </usl:Update_Custom>
+                  <If Condition="[response &lt;&gt; &quot;UPDATE COMPLETED&quot;]" sap:VirtualizedContainerService.HintSize="756,412.666666666667" sap2010:WorkflowViewState.IdRef="If_6">
+                    <If.Then>
+                      <Sequence sap:VirtualizedContainerService.HintSize="376,248.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Failed to update SF quote &quot; + sf_quoteId + &quot; &quot; + itc_quoteUrl]" />
+                        <Throw Exception="[new BusinessRuleException(&quot;Failed to update SF quote &quot; +  sf_quoteId + &quot; &quot; + itc_quoteUrl)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_5" />
+                      </Sequence>
+                    </If.Then>
+                    <If.Else>
+                      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;Update SF quote &quot; + sf_quoteId + &quot; &quot; + itc_quoteUrl]" />
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </If.Then>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </usl:Salesforce_Application_Scope.Body>
+    </usl:Salesforce_Application_Scope>
+  </Sequence>
+</Activity>

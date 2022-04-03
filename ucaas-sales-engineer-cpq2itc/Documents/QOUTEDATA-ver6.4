@@ -1,0 +1,193 @@
+{
+   "InitializeQuote": {
+      "OpportunityID": "ABC123"
+      "ITCOpportunityID": "" 
+	  "OpportunityName": "ABC Company - Atlanta Site Migration",
+      "QuoteType": "Solution",
+      "ContractCurrency": "USD",
+      "ContractCountry": "USA",
+      "ContractTermInMonths": "36",
+      "CompanyStatus": "Existing",
+	  "CompanyName": "Mudgeons East Louisville Company",
+      "ITCompanyNumber": "8342",
+      "CompanyDBA": "32",
+      "Lead": "Cisco",
+      "RsmSm": "Adams, Scott",
+      "Sde": "Abrahamson, Allen",
+      "Partner": ""
+	  "DateCreated": "06/22/2020"
+	  "DateModified": "06/22/2020"
+    },
+   "QuoteContacts": [
+      {
+		 "ContactId": ""
+         "ContactName": "Brenda Stokes",
+         "ContactPhone": "5025544417",
+         "Email": "stokes.brendan@gmail.com",
+		 "Type": "Principal"
+	  },
+      { 
+		 "ContactId": ""
+         "ContactName": "Jim  Stokes",
+         "ContactPhone": "5025544416",
+         "Email": "stokes.jim@gmail.com"
+		 "Type": "Billing"
+      },
+	  {
+	  	 "ContactId": ""
+         "ContactName": "Mathew Stokes",
+         "ContactPhone": "5025544415",
+         "Email": "stokes.mathew@gmail.com",
+		 "Type": "Technical": 
+      }
+   ],
+   "Locations": [
+     {
+	  	 "ItcLocationId": "110862",
+		 "ItcLocationName": "1 Muddville Ln , Muddville KY",
+		 "StreetNumber": "1",
+         "StreetName": "Muddville Ln",
+         "SuitNumber": "",
+         "Address2": "",
+         "City": "Muddville",
+         "State": "KY",
+         "Country": "United States of America",
+         "ZipCode": "92231",
+		 "Status": "Pending",
+		 "InstallType": "Mgd",
+		 "WelcomeCallNeeded": "false",
+		 "UsersCount": "100",
+		 "Nrc": "0.00000",
+		 "MrcVoice": "",
+		 "MrcAccess": "",
+		 "InstallStatus": "New",
+		 "BillingStarted": "No"
+         "LocationNotes": "Test Location",
+         "MainLocation": "Y"
+      }
+   ],
+   "Services": 
+   [
+		{
+			 	"QuoteSid": "",
+				"ItcServiceId": "2960",
+				"ItcServiceName": "VoiceMaxx Cloud Calling Flex Standard Voice User",
+				"ServiceType":"Managed Voice Services",
+			    "ServiceCategory":"Managed Voice Services",
+				"ItcLocationId": "110862",
+				"ShortDescription": "VoiceMaxx Cloud Calling Flex Standard Voice User",
+				"InvoiceDescription": "VoiceMaxx Cloud Calling Flex Standard Voice User",
+				"QuotedDescription": "VoiceMaxx Cloud Calling Flex Standard Voice User",
+				"Mrc": "9.0",
+				"Nrc": "0.0",
+				"Quantity": "50",
+				"DateCreated": "06/22/2020"
+				"DisplayOnQoute": "Yes"
+		  },
+		  {
+  			 	"QuoteSid": "",
+				"ItcServiceId": "3106",
+				"ItcServiceName": "Emergency Routing Service (ERS)",
+				"ServiceType":"Other Managed Services",
+			    "ServiceCategory":"Other Managed Services",
+				"ItcLocationId": "110862",
+				"ShortDescription": "Emergency Routing Service (ERS)",
+				"InvoiceDescription": "Emergency Routing Service (ERS)",
+				"QuotedDescription": "Emergency Routing Service (ERS)",
+				"Mrc": "27.50",
+				"Nrc": "0.00000",
+				"Rate": "0.65"
+				"DateCreated": "06/22/2020"
+				"DisplayOnQoute": "Yes"
+		  }
+	],
+	"Circuits": 
+	[
+		  {
+		    	"QuoteCitid": "",
+				"ItcLocationId": "110862",
+				"ItcCircuitId": "73712",
+				"CircuitType":"Metro E25",
+				"Provider": "Level3 - IPVPN",
+				"CircuitName": "FRO2006597099",
+				"InvoiceDescription": "Metro E25",
+				"LoopFee":"1.00",
+				"PortFee":"2.00",
+				"IXC-IOC-Mileage":"3.00",
+				"Nrc-Installation": "8.00000",
+				"MRC-Quoted":"694.83",
+				"NRC-Qouted":"8.00",
+				"Quantity": "1",
+				"DateCreated": "06/21/2020",
+				"Active":"Yes",
+				"MPLS":"No",
+				"PNT":"No"
+		  }
+    ],
+   "EquipmentData": {
+      "Equipments": [
+         {
+		 	"QuoteEid": "",
+			"EquipmentType":"IP Phone Add-On".
+			"EquipmentNumber": "CP-DSKCH-8821-BUN",
+			"DisplayName": "CP-DSKCH-8821-BUN: Cisco 8821 Desk Top Charger, Power Supply, AC Power Cord",
+			"ItcLocationId": "110862",
+			"ItcMid": "17798",
+			"Nrc": "1250",
+			"Quantity": "50",
+			"Rate": "12.50",
+            "Refurbished": "N",
+            "Rental": "N",
+            "Dsa": "N"
+			"SMARTNet":"No"
+         },
+         {
+		 	"QuoteEid": "",
+			"EquipmentType":"IP Phone",
+			"EquipmentNumber":"CP-7861-3PCC-K9",
+			"DisplayName": "CP-7861-3PCC-K9: Cisco IP Phone 7861 shipped with multiplatform phone firmware"
+			"ItcLocationId": "110862",
+			"ItcMid": "21360",
+			"Nrc": "5000",
+			"Quantity": "50",
+			"Rate": "100.00"
+            "Refurbished": "N",
+            "Rental": "N",
+            "Dsa": "N",
+			"SMARTNet":"No"
+         }
+      ],
+      "RouterNeeded": "N",
+      "SwitchNeeded": "N",
+      "SmoothstoneInstallIpHandset": "N"
+   }
+}
+
+select id, Apttus__Related_Opportunity__r,Id, Apttus__Related_Opportunity__r.Name, Apttus__Related_Opportunity__r.ITC Solution_Type__c, Quote__r.CurrencyIsoCode, Quote__r.SBQQ__BillingCountry__c, Quote__r.EC_Contract_Term__c, Account__r.Name, Account__r.IP_Company_Number__c, Account__r.ITC_Principal_Contact__r.Name,
+Account__r.ITC_Principal_Contact__r.Phone,
+Account__r.ITC_Principal_Contact__r.Email,
+Account__r.ITC_Billing_Contact__r.Name,
+Account__r.ITC_Billing_Contact__r.Phone,
+Account__r.ITC_Billing_Contact__r.Email,
+Account__r.ITC_Technical_Contact__r.Name,
+Account__r.ITC_Technical_Contact__r.Phone,
+Account__r.ITC_Technical_Contact__r.Email
+from Apttus__APTS_Agreement__c where id = 'a22230000026x9c'
+
+select id,SBQQ__Group__c,
+SBQQ__Group__r.Location__r.Id,
+SBQQ__Group__r.Location__r.Location_Name__c, 
+SBQQ__Group__r.Location__r.ITC_Location_ID__c,
+SBQQ__Group__r.Location__r.Address__c,
+SBQQ__Group__r.Location__r.City__c,
+SBQQ__Group__r.Location__r.State__c,
+SBQQ__Group__r.Location__r.Country__c,
+SBQQ__Group__r.Location__r.Zip_Code__c,
+SBQQ__Product__c,
+SBQQ__Product__r.ITC_Product_Type__c,
+SBQQ__Product__r.ITC_Product_Category__c,
+SBQQ__Product__r.Name,
+SBQQ__ListPrice__c,
+SBQQ__Quantity__c,
+SBQQ__Product__r.Revenue_Type__c 
+from SBQQ__QuoteLine__c where SBQQ__Quote__c = 'aGt230000008RAB' where SBQQ__Product__r.ITC_Product_Type__c != null

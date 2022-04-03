@@ -1,0 +1,534 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Extract_data_from_reports" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="588,891" sap2010:WorkflowViewState.IdRef="Extract_data_from_reports_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:usa="clr-namespace:UiPath.Salesforce.Activities;assembly=UiPath.Salesforce.Activities" xmlns:usam="clr-namespace:UiPath.Salesforce.Activities.Models;assembly=UiPath.Salesforce.Activities" xmlns:usc="clr-namespace:UiPath.Salesforce.ConnectionService;assembly=UiPath.Salesforce" xmlns:usl="clr-namespace:UiPathTeam.Salesforce.Lightning_Platform;assembly=UiPathTeam.Salesforce.Activities.Lightning_Platform" xmlns:usm="clr-namespace:UiPath.Salesforce.Models;assembly=UiPath.Salesforce" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="28">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Net</x:String>
+      <x:String>UiPath.Database</x:String>
+      <x:String>UiPath.Salesforce.ConnectionService</x:String>
+      <x:String>UiPath.Salesforce.Activities.Models</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="22">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Database</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce</AssemblyReference>
+      <AssemblyReference>UiPath.Salesforce.Activities</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="Tests Sequence" sap:VirtualizedContainerService.HintSize="568,831" sap2010:WorkflowViewState.IdRef="Sequence_34">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" Default="3MVG94DzwlYDSHS7GhJ9v5ttLlOdsVTjruP1VEtUPDuLLVtjKmcEkFX8qBKMeUkkW9eAw6mez8RW6vEWkVX2k" Name="sfConsumerKey" />
+      <Variable x:TypeArguments="ss:SecureString" Default="[(new System.Net.NetworkCredential(&quot;&quot;, &quot;5B80EA4E6CF509B43807E5ADA20A2F0D324D1188891D78CA75C7F9847C32E300&quot;)).SecurePassword]" Name="sfCustSecret" />
+      <Variable x:TypeArguments="ss:SecureString" Default="[(new System.Net.NetworkCredential(&quot;&quot;, &quot;169triMON$&quot;)).SecurePassword]" Name="sfPass" />
+      <Variable x:TypeArguments="x:String" Default="Test" Name="sfServer" />
+      <Variable x:TypeArguments="x:String" Default="automationbot@west.com.uat" Name="sfUsername" />
+      <Variable x:TypeArguments="sd:DataTable" Name="DT" />
+      <Variable x:TypeArguments="x:Int32" Name="count" />
+      <Variable x:TypeArguments="x:String" Name="result" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="ContractNumber" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="ContractId" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="ContractName" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="Rate" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="TotalContractValue" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="Status" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="PricingModel" />
+      <Variable x:TypeArguments="ui:GenericValue" Name="AmericasCompanyNumber" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap:VirtualizedContainerService.HintSize="526,463" sap2010:WorkflowViewState.IdRef="Sequence_47">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="sd:DataTable" Name="countryMapping" />
+        <Variable x:TypeArguments="x:String" Name="lookupResult" />
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BuildDataTable DataTable="[countryMapping]" DisplayName="Build Data Table - Country mapping" sap:VirtualizedContainerService.HintSize="484,59" sap2010:WorkflowViewState.IdRef="BuildDataTable_1" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Country_SF&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Country_ITC&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;  &lt;TableName&gt;&#xA;    &lt;Country_SF&gt;United States&lt;/Country_SF&gt;&#xA;    &lt;Country_ITC&gt;United States of America&lt;/Country_ITC&gt;&#xA;  &lt;/TableName&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:LookupDataTable LookupColumnIndex="{x:Null}" LookupDataColumn="{x:Null}" RowIndex="{x:Null}" TargetColumnIndex="{x:Null}" TargetDataColumn="{x:Null}" DataTable="[countryMapping]" DisplayName="Lookup Data Table" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="LookupDataTable_1" LookupColumnName="Country_SF" LookupValue="Poland" TargetColumnName="Country_ITC">
+        <ui:LookupDataTable.CellValue>
+          <OutArgument x:TypeArguments="x:String">[lookupResult]</OutArgument>
+        </ui:LookupDataTable.CellValue>
+      </ui:LookupDataTable>
+      <If Condition="[lookupResult is Nothing or lookupResult=&quot;&quot;]" sap:VirtualizedContainerService.HintSize="484,210" sap2010:WorkflowViewState.IdRef="If_2">
+        <If.Then>
+          <Throw Exception="[New BusinessRuleException(&quot;Missing mapping for country: &quot; + &quot;&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_1" />
+        </If.Then>
+      </If>
+    </Sequence>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="518,158" sap2010:WorkflowViewState.IdRef="Sequence_40">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Message in Chatter" sap:VirtualizedContainerService.HintSize="200,66" sap2010:WorkflowViewState.IdRef="Sequence_39">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" UserNameProd="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="3MVG94DzwlYDSHS7GhJ9v5ttLlOdsVTjruP1VEtUPDuLLVtjKmcEkFX8qBKMeUkkW9eAw6mez8RW6vEWkVX2k" ConsumerSecret="5B80EA4E6CF509B43807E5ADA20A2F0D324D1188891D78CA75C7F9847C32E300" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="433.6,892.8" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_1" InvalidCommand="No" Password="169triMON$" ServerType="Sandbox" UserName="automationbot@west.com.uat">
+              <usl:Salesforce_Application_Scope.Body>
+                <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="241.6,782.4" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <usl:Get_Data_Wizard Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT]" DisplayName="Get Data Wizard" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Get_Data_Wizard_1" InvalidCommand="No" Search="[&quot;SELECT Name,Owner.Name,Type,LastActivityDate,LastModifiedDate FROM Account WHERE BillingCountry='Canada' LIMIT 100&quot;]" />
+                    <usl:Get_Email_List DataResult="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Get Email List" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Get_Email_List_1" InvalidCommand="No" Search="SELECT Id,ParentId,FromAddress,ToAddress,Subject,TextBody,HtmlBody FROM EmailMessage WHERE IsDeleted=FALSE LIMIT 100" />
+                    <usl:Add_Email EmailID="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Add Email" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Add_Email_1" InvalidCommand="No" cmdTYPE="AddEmail">
+                      <usl:Add_Email.Parameters>
+                        <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="8">
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">FromAddress</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">cguillaume@west.com</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">ParentId</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">5004P0000136VaYQAU</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">Subject</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">Test from RPA</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">ToAddress</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">automationbot@west.com</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">TextBody</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">This is a test</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                        </scg:List>
+                      </usl:Add_Email.Parameters>
+                    </usl:Add_Email>
+                    <usl:Add_Comment CommentID="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Add Comment" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Add_Comment_2" InvalidCommand="No" MessageID="0D53C0000090nw9SAA" cmdTYPE="AddComment">
+                      <usl:Add_Comment.Parameters>
+                        <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">Text</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">This a test from RPA</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">Type</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">Text</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                        </scg:List>
+                      </usl:Add_Comment.Parameters>
+                    </usl:Add_Comment>
+                    <usl:Add_Chatter MessageID="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Add Message" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Add_Chatter_1" InvalidCommand="No" cmdTYPE="AddChatter">
+                      <usl:Add_Chatter.Parameters>
+                        <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">Body</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">This is an add message test from RPA</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                          <usl:ParametersArgument>
+                            <usl:ParametersArgument.Parameter>
+                              <InArgument x:TypeArguments="x:String">ParentId</InArgument>
+                            </usl:ParametersArgument.Parameter>
+                            <usl:ParametersArgument.ValueData>
+                              <InArgument x:TypeArguments="x:String">a3Qf2000004RtJnEAK</InArgument>
+                            </usl:ParametersArgument.ValueData>
+                          </usl:ParametersArgument>
+                        </scg:List>
+                      </usl:Add_Chatter.Parameters>
+                    </usl:Add_Chatter>
+                    <usl:Get_Contract_List DataResult="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Get Contract List" sap:VirtualizedContainerService.HintSize="200,60.8" sap2010:WorkflowViewState.IdRef="Get_Contract_List_1" InvalidCommand="No" Search="SELECT ID,ContractNumber,Name,Total_Contract_Value__c,Status__c,PricingModel__c FROM Contract Where PricingModel__c='UM Pro'" />
+                    <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT]" DisplayName="Get Data SOQL: list of UM Pro Contracts" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_1" InvalidCommand="No" SOQL_Command="SELECT Contract__r.ID, Contract__r.ContractNumber, Contract__r.Name,Rate__c, Contract__r.Total_Contract_Value__c, Contract__r.Status__c,Contract__r.PricingModel__c, Contract__r.Account.Name FROM IC_ContractProduct__c where  Contract__r.PricingModel__c='UM Pro'  order by Contract__r.ContractNumber desc limit 1" />
+                    <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT]" DisplayName="Get Data SOQL: Contract Order Id" sap:VirtualizedContainerService.HintSize="200,22.4" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_2" InvalidCommand="No" SOQL_Command="SELECT ID, Name FROM ContractWO__c where  Name ='COM-2019-07-29-254491' " />
+                  </Sequence>
+                </ActivityAction>
+              </usl:Salesforce_Application_Scope.Body>
+            </usl:Salesforce_Application_Scope>
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="CommentOut_4">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,160" sap2010:WorkflowViewState.IdRef="Sequence_48">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="Contract with Contract PricingModel='UM Pro'" sap:VirtualizedContainerService.HintSize="200,68" sap2010:WorkflowViewState.IdRef="Sequence_42">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usl:Salesforce_Application_Scope ConsumerKeyProd="{x:Null}" ConsumerSecretProd="{x:Null}" ExistingAuth="{x:Null}" ExistingService="{x:Null}" Host="{x:Null}" PasswordProd="{x:Null}" Port="{x:Null}" ProxyPass="{x:Null}" ProxyUser="{x:Null}" ResponseAuth="{x:Null}" ResponseService="{x:Null}" SecurityToken="{x:Null}" SecurityTokenProd="{x:Null}" UserNameProd="{x:Null}" ValidConnection="{x:Null}" Connection_Status="Close_at_scope_end" ConsumerKey="3MVG94DzwlYDSHS7GhJ9v5ttLlOdsVTjruP1VEtUPDuLLVtjKmcEkFX8qBKMeUkkW9eAw6mez8RW6vEWkVX2k" ConsumerSecret="5B80EA4E6CF509B43807E5ADA20A2F0D324D1188891D78CA75C7F9847C32E300" DisplayName="Salesforce Application Scope" EnvironmentType="Design_and_Test" sap:VirtualizedContainerService.HintSize="686,3291" sap2010:WorkflowViewState.IdRef="Salesforce_Application_Scope_2" InvalidCommand="No" Password="169triMON$" ServerType="Sandbox" UserName="automationbot@west.com.uat">
+              <usl:Salesforce_Application_Scope.Body>
+                <ActivityAction x:TypeArguments="usl:SalesForceProperty">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="usl:SalesForceProperty" Name="SalesForceScope" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="652,3181" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT]" DisplayName="Get Data SOQL: list of UM Pro Contracts" sap:VirtualizedContainerService.HintSize="610,22" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_3" InvalidCommand="No" SOQL_Command="SELECT Contract__r.ID, Contract__r.ContractNumber, Contract__r.Name,Rate__c, Contract__r.Total_Contract_Value__c, Contract__r.Status__c,Contract__r.PricingModel__c, Contract__r.Account.Name, Contract__r.Americas_Company_Number_s__c FROM IC_ContractProduct__c where  Contract__r.PricingModel__c='UM Pro'  order by Contract__r.ContractNumber desc" />
+                    <ui:OutputDataTable DataTable="[DT]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="610,22" sap2010:WorkflowViewState.IdRef="OutputDataTable_4" Text="[result]" />
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="610,93" sap2010:WorkflowViewState.IdRef="LogMessage_5" Level="Info" Message="[&quot;Nb Contract: &quot;+DT.Rows.Count.toString+&quot; Result: &quot;+result]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="610,60" sap2010:WorkflowViewState.IdRef="Assign_2">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[count]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="610,93" sap2010:WorkflowViewState.IdRef="LogMessage_6" Level="Info" Message="[&quot;Contract__r.ContractNumber  -  Contract__r.Americas_Company_Number_s__c  - Rate__c - Contract__r.Total_Contract_Value__c&quot;]" />
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="610,93" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;Nb contract:&quot;+ count.toString]" />
+                    <ui:ForEachRow CurrentIndex="{x:Null}" DataTable="[DT]" DisplayName="For Each Row" sap:VirtualizedContainerService.HintSize="610.4,2263.2" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+                      <ui:ForEachRow.Body>
+                        <ActivityAction x:TypeArguments="sd:DataRow">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="560.8,2114.4" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="519.2,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[row(&quot;Contract__r.ContractNumber&quot;).ToString +&quot; - &quot;+row(&quot;Contract__r.Americas_Company_Number_s__c&quot;).ToString+ &quot; - &quot;+row(&quot;Rate__c&quot;).ToString+ &quot; - &quot;+row(&quot;Contract__r.Total_Contract_Value__c&quot;).ToString]" />
+                            <If Condition="[row(&quot;Contract__r.Americas_Company_Number_s__c&quot;).ToString &lt;&gt; &quot;&quot;]" sap:VirtualizedContainerService.HintSize="519.2,1888.8" sap2010:WorkflowViewState.IdRef="If_1">
+                              <If.Then>
+                                <Sequence sap:VirtualizedContainerService.HintSize="375.2,1739.2" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                  <Sequence.Variables>
+                                    <Variable x:TypeArguments="sd:DataTable" Name="DT1" />
+                                  </Sequence.Variables>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Found: &quot;+row(&quot;Contract__r.ContractNumber&quot;).ToString +&quot; - &quot;+row(&quot;Contract__r.Americas_Company_Number_s__c&quot;).ToString+ &quot; - &quot;+row(&quot;Rate__c&quot;).ToString+ &quot; - &quot;+row(&quot;Contract__r.Total_Contract_Value__c&quot;).ToString]" />
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[ContractId]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.ID").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[ContractNumber]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.ContractNumber").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[ContractName]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.Name").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_7">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[Rate]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Rate__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[TotalContractValue]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.Total_Contract_Value__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[Status]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.Status__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_10">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[PricingModel]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.PricingModel__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_11">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[AmericasCompanyNumber]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.Americas_Company_Number_s__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="ui:GenericValue">[Status]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="ui:GenericValue">[row("Contract__r.Status__c").ToString]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="UMProQueue">
+                                    <ui:AddQueueItem.ItemInformation>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ContractId">[row("Contract__r.Id").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="QRFNumber">[row("Contract__r.ContractNumber").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ContractName">[row("Contract__r.Name").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="CustomerRate">[row("Rate__c").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="ContractStatus">[row("Contract__r.Status__c").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="PricingModel">[row("Contract__r.PricingModel__c").ToString]</InArgument>
+                                      <InArgument x:TypeArguments="x:String" x:Key="AmericasCompanyNumber">[row("Contract__r.Americas_Company_Number_s__c").ToString]</InArgument>
+                                    </ui:AddQueueItem.ItemInformation>
+                                  </ui:AddQueueItem>
+                                  <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                    <Assign.To>
+                                      <OutArgument x:TypeArguments="x:Int32">[count]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                      <InArgument x:TypeArguments="x:Int32">[count+1]</InArgument>
+                                    </Assign.Value>
+                                  </Assign>
+                                  <usl:Get_Data_SOQL Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DataResult="[DT1]" DisplayName="Get Data SOQL: Contract Order Id" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="Get_Data_SOQL_4" InvalidCommand="No" SOQL_Command="[&quot;SELECT Name, ID  FROM ContractWO__c where  Name ='&quot;+ContractName+ &quot;'&quot;]" />
+                                  <ui:OutputDataTable DataTable="[DT1]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="OutputDataTable_5" Text="[result]" />
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Info" Message="[&quot;ContractOrder :&quot; +result]" />
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Add message to &quot;+DT1.Rows(0).Item(&quot;Id&quot;).ToString]" />
+                                  <usl:Add_Chatter MessageID="{x:Null}" Response="{x:Null}" Result="{x:Null}" ValidConnection="{x:Null}" DisplayName="Add Message" sap:VirtualizedContainerService.HintSize="333.6,60.8" sap2010:WorkflowViewState.IdRef="Add_Chatter_2" InvalidCommand="No" cmdTYPE="AddChatter">
+                                    <usl:Add_Chatter.Parameters>
+                                      <scg:List x:TypeArguments="usl:ParametersArgument" Capacity="4">
+                                        <usl:ParametersArgument>
+                                          <usl:ParametersArgument.Parameter>
+                                            <InArgument x:TypeArguments="x:String">Body</InArgument>
+                                          </usl:ParametersArgument.Parameter>
+                                          <usl:ParametersArgument.ValueData>
+                                            <InArgument x:TypeArguments="x:String">This is an add message test from RPA</InArgument>
+                                          </usl:ParametersArgument.ValueData>
+                                        </usl:ParametersArgument>
+                                        <usl:ParametersArgument>
+                                          <usl:ParametersArgument.Parameter>
+                                            <InArgument x:TypeArguments="x:String">ParentId</InArgument>
+                                          </usl:ParametersArgument.Parameter>
+                                          <usl:ParametersArgument.ValueData>
+                                            <InArgument x:TypeArguments="x:String">[DT1.Rows(0).Item("Id").toString]</InArgument>
+                                          </usl:ParametersArgument.ValueData>
+                                        </usl:ParametersArgument>
+                                      </scg:List>
+                                    </usl:Add_Chatter.Parameters>
+                                  </usl:Add_Chatter>
+                                </Sequence>
+                              </If.Then>
+                            </If>
+                          </Sequence>
+                        </ActivityAction>
+                      </ui:ForEachRow.Body>
+                    </ui:ForEachRow>
+                    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="610.4,163.2" sap2010:WorkflowViewState.IdRef="CommentOut_2">
+                      <ui:CommentOut.Body>
+                        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="200,84.8" sap2010:WorkflowViewState.IdRef="Sequence_45">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                        </Sequence>
+                      </ui:CommentOut.Body>
+                    </ui:CommentOut>
+                  </Sequence>
+                </ActivityAction>
+              </usl:Salesforce_Application_Scope.Body>
+            </usl:Salesforce_Application_Scope>
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+    <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="526,52" sap2010:WorkflowViewState.IdRef="CommentOut_3">
+      <ui:CommentOut.Body>
+        <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="518,798" sap2010:WorkflowViewState.IdRef="Sequence_46">
+          <sap:WorkflowViewStateService.ViewState>
+            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            </scg:Dictionary>
+          </sap:WorkflowViewStateService.ViewState>
+          <Sequence DisplayName="SF API" sap:VirtualizedContainerService.HintSize="476,746" sap2010:WorkflowViewState.IdRef="Sequence_36">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:String" Name="output" />
+              <Variable x:TypeArguments="usam:SalesforceStatus" Name="sfStatus" />
+              <Variable x:TypeArguments="sd:DataTable" Name="sfCase_dt" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <usa:SalesforceApplicationScope ExistingConnectionService="{x:Null}" SalesforceConnection="{x:Null}" SecurityToken="{x:Null}" ConsumerKey="[sfConsumerKey]" ConsumerSecret="[sfCustSecret]" DisplayName="SF App Scope - Get Cases' " sap:VirtualizedContainerService.HintSize="434,654" sap2010:WorkflowViewState.IdRef="SalesforceApplicationScope_1" Password="[sfPass]" ServerType="[sfServer]" UseStrongDataTyping="False" Username="[sfUsername]">
+              <usa:SalesforceApplicationScope.Body>
+                <ActivityAction x:TypeArguments="usc:IConnectionService">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="usc:IConnectionService" Name="SalesforceConnection" />
+                  </ActivityAction.Argument>
+                  <Sequence sap:VirtualizedContainerService.HintSize="375.2,543.2" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                    <usa:ExecuteSoql SalesforceStatus="{x:Null}" DisplayName="Execute UMPRO-Active SOQL" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="ExecuteSoql_1" Result="[DT]" SoqlCommand="SELECT Contract__r.ID, Contract__r.ContractNumber, Contract__r.Name,Rate__c, Contract__r.Total_Contract_Value__c, Contract__r.Status__c,Contract__r.PricingModel__c, Contract__r.Account.Name FROM IC_ContractProduct__c where  Contract__r.PricingModel__c='UM Pro'  order by Contract__r.ContractNumber desc limit 1" />
+                    <ui:OutputDataTable DataTable="[DT]" DisplayName="Output Data Table" sap:VirtualizedContainerService.HintSize="333.6,22.4" sap2010:WorkflowViewState.IdRef="OutputDataTable_3" Text="[result]" />
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Info" Message="[&quot;Nb Contract: &quot;+DT.Rows.Count.toString+&quot; Result: &quot;+result]" />
+                    <Assign sap:VirtualizedContainerService.HintSize="333.6,60" sap2010:WorkflowViewState.IdRef="Assign_1">
+                      <Assign.To>
+                        <OutArgument x:TypeArguments="x:Int32">[count]</OutArgument>
+                      </Assign.To>
+                      <Assign.Value>
+                        <InArgument x:TypeArguments="x:Int32">0</InArgument>
+                      </Assign.Value>
+                    </Assign>
+                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="333.6,92.8" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Info" Message="[&quot;Contract__r.ContractNumber  -  Contract__r.Americas_Company_Number_s__c  - Rate__c - Contract__r.Total_Contract_Value__c&quot;]" />
+                  </Sequence>
+                </ActivityAction>
+              </usa:SalesforceApplicationScope.Body>
+              <usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+                <usm:SalesforceConnectionInfo ConsumerKey="3MVG9oZtFCVWuSwMVaBuDwBn2d36z1VUzrWxvGx_lD6vUt1VsWISqGtsA9ymvsmqXSOXIZraYT.BGBstx.xu3" EncryptedConsumerSecret="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAg64oHlZNk0SYsvphI5fHygAAAAACAAAAAAADZgAAwAAAABAAAADVC7fwAithIYJnugm6o9dTAAAAAASAAACgAAAAEAAAAIIlCsk0bqkaitgQIrETuEBIAAAA9ZpgUsgUr1ssbQzDeP16fcT9ILueJ7xOszGPH7045pkhZCgvhGWyTt8jRMyftVHIzJKoCL5zZnYbH4L2wdKsb89RPZUz60uXFAAAABe/8hbU80vwFUDm6w9Nxp0LfLDq" EncryptedSecurityToken="" ServerInstance="Test" UserName="automationbot@west.com.uat">
+                  <usm:SalesforceConnectionInfo.ConsumerSecret>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.ConsumerSecret>
+                  <usm:SalesforceConnectionInfo.Password>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.Password>
+                  <usm:SalesforceConnectionInfo.SecurityToken>
+                    <ss:SecureString />
+                  </usm:SalesforceConnectionInfo.SecurityToken>
+                </usm:SalesforceConnectionInfo>
+              </usa:SalesforceApplicationScope.DesignSalesforceConnectionInfo>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </usa:SalesforceApplicationScope>
+          </Sequence>
+        </Sequence>
+      </ui:CommentOut.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:CommentOut>
+  </Sequence>
+</Activity>

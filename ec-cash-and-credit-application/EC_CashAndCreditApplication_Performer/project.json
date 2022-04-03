@@ -1,0 +1,110 @@
+{
+  "name": "EC_CashAndCreditApplication_Performer",
+  "description": "Robotic Enterprise Framework",
+  "main": "Main.xaml",
+  "dependencies": {
+    "Email.Tools": "[1.0.18]",
+    "Microsoft.Activities": "[1.0.1]",
+    "OracleCloud": "[1.0.43]",
+    "UiPath.Excel.Activities": "[2.11.4]",
+    "UiPath.System.Activities": "[21.10.2]",
+    "UiPath.UIAutomation.Activities": "[21.10.3]"
+  },
+  "webServices": [],
+  "entitiesStores": [],
+  "schemaVersion": "4.0",
+  "studioVersion": "20.4.3.0",
+  "projectVersion": "1.0.13",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "isPausable": true,
+    "requiresUserInteraction": true,
+    "supportsPersistence": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ],
+    "executionType": "Workflow",
+    "readyForPiP": false,
+    "startsInPiP": false
+  },
+  "designOptions": {
+    "projectProfile": "Developement",
+    "outputType": "Process",
+    "libraryOptions": {
+      "includeOriginalXaml": false,
+      "privateWorkflows": []
+    },
+    "processOptions": {
+      "ignoredFiles": [
+        "Documentation/Auto application of Credit.docx",
+        "Documentation/AutoApplicationCredit.png",
+        "Documentation/REFramework Documentation-EN.pdf",
+        ".screenshots/00df59a5ba4e7330249712e9bcf32333.png",
+        ".screenshots/021855f03d69f333b60464b6d1cb135c.png",
+        ".screenshots/04c18aafc2745f94c9fd330a1b7cf86b.png",
+        ".screenshots/0688e51e872beea3651c8ea9a79da82e.png",
+        ".screenshots/0e281414020f0f88a27a24d4aa2ebccb.png",
+        ".screenshots/11805e76f2d40c382b987ecff48bb083.png",
+        ".screenshots/186c110d464eb21cb8661006b625ef81.png",
+        ".screenshots/1f71be0b1ed479fffdd661431cdb5af7.png",
+        ".screenshots/30ff2bb15d7c464f9fa4d6bafcc5b262.png",
+        ".screenshots/34cc90c3747030ea750a850c45a0e124.png",
+        ".screenshots/3582ecef0b205a8567c423540d1f95b9.png",
+        ".screenshots/465b95a8fc9eeed9785f158a6a8f9f7a.png",
+        ".screenshots/4b14b2f9e0da5cab87fc24862d1d87b0.png",
+        ".screenshots/4e4c29036bdb82b3096e4bd83e8d99fc.png",
+        ".screenshots/4ec144bcd7fdf21d4ea8933d10112703.png",
+        ".screenshots/51e4fd360ee63a61041f0fb327b32d1e.png",
+        ".screenshots/59746850b12a0e683fa0c162e57c0fff.png",
+        ".screenshots/62e4c2b563d0505027e480ce24103b23.png",
+        ".screenshots/64a24e4e7f710a8dc28a2eb5cefb4d2a.png",
+        ".screenshots/72fef2e81f836b42eb630764f7d6d6b1.png",
+        ".screenshots/739b8235ff13046285ef637acc6ee3bc.png",
+        ".screenshots/74c330fbe63c85a36a3c65489621ade2.png",
+        ".screenshots/76a2176d75f0e144e474b0ee9da1a81a.png",
+        ".screenshots/7cf1494d75615cf605903871dce649af.png",
+        ".screenshots/7daabb664fb1c1d1f54926e9734850aa.png",
+        ".screenshots/889a84fee427383a836225a416966de8.png",
+        ".screenshots/96b07f9fc042b8dc731085bbce1f915c.png",
+        ".screenshots/9bdf6e5fa05a8750b18e4364ddb78c52.png",
+        ".screenshots/9de6a8976b3ff74ad12e691c15fa9522.png",
+        ".screenshots/9eb5fb33f7bcb3bbfec5e99a3b4f25ee.png",
+        ".screenshots/9f1045f5dac062871034b5681127bb8d.png",
+        ".screenshots/aa0853df9287b73aa4cd81d6783c2577.png",
+        ".screenshots/ab5fa6d7e4d0e1262ee854dba75de334.png",
+        ".screenshots/ab836af551c6bee11cfe5711ad9e89a9.png",
+        ".screenshots/c1f4b47bc0aa900bff8fdbcbd5f7acd2.png",
+        ".screenshots/c368b55b818b5704919156f5946fb531.png",
+        ".screenshots/c4b3085c44e27bdc6872a7643ffefdd5.png",
+        ".screenshots/c7f270cf489cb508f5f663f6288697dc.png",
+        ".screenshots/d0ac4f23b98b61a48a830e11677d71bf.png",
+        ".screenshots/d7772b93dde144da56b35c9c632acd60.png",
+        ".screenshots/da94c43a153eb4644fc3fedb3533c44e.png",
+        ".screenshots/dabc99b477210c023a0440f9103ac379.png",
+        ".screenshots/db771ea33429eeea8a85b99a8cc7da55.png",
+        ".screenshots/dcd3a324781610c0bc27231a9f171f20.png",
+        ".screenshots/ddab60cc45c610edc4aadf855678f2be.png",
+        ".screenshots/e989be6e38c676cb558c560243c8def1.png",
+        ".screenshots/ea62281c6815c4ee7d4a613d3427074c.png",
+        ".screenshots/ef7e5a673edeb2419a24f841ffd304c7.png",
+        ".screenshots/f4bd39b3d2b8b358e33f798510a691f8.png"
+      ]
+    },
+    "fileInfoCollection": [],
+    "modernBehavior": false
+  },
+  "expressionLanguage": "VisualBasic",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "7e24e84c-5f9d-45da-a1b7-aaa9a5718d47",
+      "input": [],
+      "output": []
+    }
+  ],
+  "isTemplate": false,
+  "templateProjectData": {},
+  "publishData": {},
+  "targetFramework": "Legacy"
+}

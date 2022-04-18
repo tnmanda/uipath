@@ -1,0 +1,273 @@
+<apex:page standardController="Case" extensions="ITCQuoteExtension" docType="html-5.0">
+
+<style type = "text/css">  
+    .rightAlign {text-align:right;} 
+    .leftAlign {text-align:left;} 
+    .width20{width:5%; float:left;}
+    .width80{width:75%; float:left;}
+    .width100{width:90%;}
+
+</style>
+
+<apex:form >
+    <div class="width100">
+        <apex:pageBlock title="ITC Cancel Quote">
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20">
+                    <apex:outputLabel>ITC Quote Name:</apex:outputLabel>
+                    <apex:inputText value="{!itcQuoteName}" id="itcQuoteName" html-placeholder="" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2">
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Company:</apex:outputLabel>
+                    <apex:outputLabel >{!CompanyName}</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Location:</apex:outputLabel>
+                    <apex:selectList value="{!locations}" multiselect="false" size="10" style="min-width: 250px" >
+                        <apex:actionSupport event="onchange" rerender="servicearea, servicearea2, serviceareaC, serviceareaE" status="status0"/>
+                        <apex:selectOptions value="{!items}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <apex:actionStatus id="status0" style="width80">
+                <apex:facet name="start">
+                    <div>Loading services for location........</div>
+                </apex:facet>
+            </apex:actionStatus>
+          
+            <!-- SERVICES -->
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Services:</apex:outputLabel>
+                    <apex:outputPanel id="servicearea" styleClass="leftAlign">
+                        <apex:panelGrid columns="3" id="servicesGrid">
+                            <apex:selectList id="serviceTypes"  value="{!leftselected}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!unselectedvalues}"/>
+                            </apex:selectList>
+                            <apex:panelGroup >
+                                <br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/select.jpg">
+                                    <apex:actionSupport event="onclick" action="{!selectclick}" reRender="servicearea"/>
+                                </apex:image>
+                                <br/><br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/unselect.jpg">
+                                    <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="servicearea"/>
+                                </apex:image>
+                            </apex:panelGroup>
+                            <apex:selectList id="serviceTypes2"  value="{!rightselected}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!SelectedValues}"/>
+                            </apex:selectList>
+                            <!--
+                            Location: <apex:outputText value="{!locations}"></apex:outputText>
+                            -->
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                    
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Effectivity Date:</apex:outputLabel>
+                    <apex:input type="date" id="ServiceEffDate" value="{!serviceEffDate}" ></apex:input>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+             <!-- END SERVICES -->
+
+             <!-- CIRCUITS -->
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Circuits:</apex:outputLabel>
+                    <apex:outputPanel id="serviceareaC" styleClass="leftAlign">
+                        <apex:panelGrid columns="3" id="circuitsGrid">
+                            <apex:selectList id="circuitTypes"  value="{!leftselectedC}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!unselectedvaluesC}"/>
+                            </apex:selectList>
+                            <apex:panelGroup >
+                                <br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/select.jpg">
+                                    <apex:actionSupport event="onclick" action="{!selectclickC}" reRender="serviceareaC"/>
+                                </apex:image>
+                                <br/><br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/unselect.jpg">
+                                    <apex:actionSupport event="onclick" action="{!unselectclickC}" reRender="serviceareaC"/>
+                                </apex:image>
+                            </apex:panelGroup>
+                            <apex:selectList id="circuitTypes2"  value="{!rightselectedC}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!SelectedValuesC}"/>
+                            </apex:selectList>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Effectivity Date:</apex:outputLabel>
+                    <apex:input type="date" id="CircuitEffDate" value="{!circuitEffDate}" ></apex:input>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- END CIRCUITS-->
+
+            <!-- EQUIPMENTS -->
+            
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Equipments:</apex:outputLabel>
+                    <apex:outputPanel id="serviceareaE" styleClass="leftAlign">
+                        <apex:panelGrid columns="3" id="equipmentGrid">
+                            <apex:selectList id="equipmentTypes"  value="{!leftselectedE}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!unselectedvaluesE}"/>
+                            </apex:selectList>
+                            <apex:panelGroup >
+                                <br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/select.jpg">
+                                    <apex:actionSupport event="onclick" action="{!selectclickE}" reRender="serviceareaE"/>
+                                </apex:image>
+                                <br/><br/>
+                                <apex:image value="https://hisrinu.files.wordpress.com/2011/05/unselect.jpg">
+                                    <apex:actionSupport event="onclick" action="{!unselectclickE}" reRender="serviceareaE"/>
+                                </apex:image>
+                            </apex:panelGroup>
+                            <apex:selectList id="equipmentTypes2"  value="{!rightselectedE}" multiselect="true" size="10" style="min-width: 250px" >
+                                <apex:selectOptions value="{!SelectedValuesE}"/>
+                            </apex:selectList>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Effectivity Date:</apex:outputLabel>
+                    <apex:input type="date" id="EquipmentEffDate" value="{!equipmentEffDate}" ></apex:input>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <!-- END EQUIPMENTS -->
+
+            
+
+            
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Term:</apex:outputLabel>
+                    <apex:inputText value="{!itcTerm}" id="itcTerm" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Currency:</apex:outputLabel>
+                    <apex:inputText value="{!itcQuoteCurrency}" id="itcQuoteCurrency" />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Quote type:</apex:outputLabel>
+                    <apex:outputText id="itcQuoteType" value="{!ItcQuoteType}" ></apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >Solution Type:</apex:outputLabel>
+                    <apex:selectList value="{!solutionTypes}" multiselect="false" size="10" style="min-width: 250px" >
+                        <apex:selectOptions value="{!solutionType}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            
+
+            <apex:pageBlockSection columns="2" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputLabel >RPA Status:</apex:outputLabel>
+                    <apex:selectList value="{!rPAStatus}" multiselect="false" size="1" style="min-width: 250px" >
+                        <apex:selectOptions value="{!RPAStatuses}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+
+            <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:commandButton id="Submit" value="Submit" action="{!submitQuote}" rerender="out" status="status"  />
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <!--
+            <apex:pageBlockSection columns="1" >
+                <apex:pageBlockSectionItem dataStyleClass="width80" labelStyleClass="width20" >
+                    <apex:outputPanel id="servicearea2" >
+                        <apex:panelGrid columns="3" id="abcd">
+                            <apex:selectList id="sel1" value="{!leftselected}" multiselect="true" style="width:100px" size="5">
+                                <apex:selectOptions value="{!unselectedvalues}" />
+                            </apex:selectList>
+                                <apex:panelGroup >
+                                    <br/>
+                                    <apex:image value="https://hisrinu.files.wordpress.com/2011/05/select.jpg">
+                                        <apex:actionSupport event="onclick" action="{!selectclick}" reRender="abcd"/>
+                                    </apex:image>
+                                    
+                                    <br/><br/>
+                                    <apex:image value="https://hisrinu.files.wordpress.com/2011/05/unselect.jpg">
+                                        <apex:actionSupport event="onclick" action="{!unselectclick}" reRender="abcd"/>
+                                    </apex:image>
+                                </apex:panelGroup>
+                            <apex:selectList id="sel2" value="{!rightselected}" multiselect="true" style="width:100px" size="5">
+                                <apex:selectOptions value="{!SelectedValues}" />
+                            </apex:selectList>
+                        </apex:panelGrid>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        -->
+
+        </apex:pageBlock>
+    </div>
+
+</apex:form>
+    
+    
+    
+    <apex:outputPanel id="out">
+        <apex:actionstatus id="status" startText="saving...">
+            <apex:facet name="stop">
+                <apex:outputPanel >
+                    <p>You have selected:</p>
+                    Account: <apex:outputText value="{!CompanyName}"></apex:outputText> <p />
+                    Location: <apex:outputText value="{!locations}"></apex:outputText>
+                    Case: <apex:outputText value="{!CaseId}"></apex:outputText> <p />
+                    Name: <apex:outputText value="{!itcQuoteName}"></apex:outputText> <p />
+                    Term: <apex:outputText value="{!itcTerm}"></apex:outputText> <p />
+                    Currency: <apex:outputText value="{!itcQuoteCurrency}"></apex:outputText> <p />
+                    Type: <apex:outputText value="{!itcQuoteType}"></apex:outputText> <p />
+                    locations: <apex:outputText value="{!locations}"></apex:outputText> <p />
+                    solutiontype: <apex:outputText value="{!solutionTypes}"></apex:outputText> <p />
+                    services: <apex:outputText value="{!services}"></apex:outputText> <p />
+                    eff date: <apex:outputText value="{!serviceEffDate}"></apex:outputText> <p />
+                    services: <apex:outputText value="{!services}"></apex:outputText> <p />
+                    eff date: <apex:outputText value="{!circuitEffDate}"></apex:outputText> <p />
+                    service right values: <apex:outputText value="{!RightValues}"></apex:outputText> <p />
+                    circuits right values: <apex:outputText value="{!RightValuesC}"></apex:outputText> <p />
+                    equipment right values: <apex:outputText value="{!RightValuesE}"></apex:outputText> <p />
+                    RPAStatus: <apex:outputText value="{!rPAStatus}"></apex:outputText> <p />
+                    
+                    
+                </apex:outputPanel>
+            </apex:facet>
+        </apex:actionstatus>
+    </apex:outputPanel>
+
+    
+
+</apex:page>
